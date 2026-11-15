@@ -1,4 +1,10 @@
-import { Button, Icon, Intent, NonIdealState, Spinner } from "@blueprintjs/core";
+import {
+	Button,
+	Icon,
+	Intent,
+	NonIdealState,
+	Spinner,
+} from "@blueprintjs/core";
 import { Card } from "./Card";
 
 /**
@@ -9,20 +15,20 @@ import { Card } from "./Card";
  * @param {string} [props.className]
  */
 export function LoadingState({
-  label,
-  message = "Loading data...",
-  rows = 4,
-  className = "",
+	label,
+	message = "Loading data...",
+	rows = 4,
+	className = "",
 }) {
-  return (
-    <Card className={className}>
-      <NonIdealState
-        icon={<Spinner size={36} intent={Intent.PRIMARY} />}
-        title={label || message}
-        description={`Fetching latest records (${rows} sections)...`}
-      />
-    </Card>
-  );
+	return (
+		<Card className={className}>
+			<NonIdealState
+				icon={<Spinner size={36} intent={Intent.PRIMARY} />}
+				title={label || message}
+				description={`Fetching latest records (${rows} sections)...`}
+			/>
+		</Card>
+	);
 }
 
 /**
@@ -34,32 +40,38 @@ export function LoadingState({
  * @param {string} [props.className]
  */
 export function ErrorState({
-  title = "Unable to load data",
-  error,
-  message,
-  onRetry,
-  className = "",
+	title = "Unable to load data",
+	error,
+	message,
+	onRetry,
+	className = "",
 }) {
-  const detail =
-    message || error?.message || "An unexpected error occurred while fetching data.";
+	const detail =
+		message ||
+		error?.message ||
+		"An unexpected error occurred while fetching data.";
 
-  return (
-    <Card className={className}>
-      <NonIdealState
-        icon={<Icon icon="error" size={36} intent={Intent.DANGER} />}
-        iconMuted={false}
-        title={title}
-        description={detail}
-        action={
-          onRetry ? (
-            <Button variant="outlined" intent={Intent.PRIMARY} icon="refresh" onClick={onRetry}>
-              Retry
-            </Button>
-          ) : undefined
-        }
-      />
-    </Card>
-  );
+	return (
+		<Card className={className}>
+			<NonIdealState
+				icon={<Icon icon="error" size={36} intent={Intent.DANGER} />}
+				iconMuted={false}
+				title={title}
+				description={detail}
+				action={
+					onRetry ? (
+						<Button
+							variant="outlined"
+							intent={Intent.PRIMARY}
+							icon="refresh"
+							onClick={onRetry}>
+							Retry
+						</Button>
+					) : undefined
+				}
+			/>
+		</Card>
+	);
 }
 
 /**
@@ -71,20 +83,20 @@ export function ErrorState({
  * @param {string} [props.className]
  */
 export function EmptyState({
-  icon = "inbox",
-  title = "No records found",
-  description = "No items match your current criteria.",
-  action,
-  className = "",
+	icon = "inbox",
+	title = "No records found",
+	description = "No items match your current criteria.",
+	action,
+	className = "",
 }) {
-  return (
-    <Card className={className}>
-      <NonIdealState
-        icon={/** @type {any} */ (icon)}
-        title={title}
-        description={description}
-        action={action}
-      />
-    </Card>
-  );
+	return (
+		<Card className={className}>
+			<NonIdealState
+				icon={/** @type {any} */ (icon)}
+				title={title}
+				description={description}
+				action={action}
+			/>
+		</Card>
+	);
 }

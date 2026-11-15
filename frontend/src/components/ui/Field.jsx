@@ -1,4 +1,9 @@
-import { FormGroup, InputGroup, Intent, TextArea as BpTextArea } from "@blueprintjs/core";
+import {
+	FormGroup,
+	InputGroup,
+	Intent,
+	TextArea as BpTextArea,
+} from "@blueprintjs/core";
 
 /**
  * @param {object} props
@@ -12,49 +17,52 @@ import { FormGroup, InputGroup, Intent, TextArea as BpTextArea } from "@blueprin
  * @param {string} [props.className]
  */
 export function Field({
-  label,
-  required,
-  description,
-  error,
-  children,
-  id,
-  inline = false,
-  className = "",
+	label,
+	required,
+	description,
+	error,
+	children,
+	id,
+	inline = false,
+	className = "",
 }) {
-  return (
-    <FormGroup
-      label={label}
-      labelFor={id}
-      labelInfo={required ? <span className="bp6-text-muted">(required)</span> : undefined}
-      helperText={error || description}
-      intent={error ? Intent.DANGER : Intent.NONE}
-      inline={inline}
-      className={className}
-    >
-      {children}
-    </FormGroup>
-  );
+	return (
+		<FormGroup
+			label={label}
+			labelFor={id}
+			labelInfo={
+				required ? (
+					<span className="bp6-text-muted">(required)</span>
+				) : undefined
+			}
+			helperText={error || description}
+			intent={error ? Intent.DANGER : Intent.NONE}
+			inline={inline}
+			className={className}>
+			{children}
+		</FormGroup>
+	);
 }
 
 /** @param {Record<string, any>} props */
 export function Input({
-  className = "",
-  error,
-  hasError,
-  intent,
-  fill = true,
-  ref,
-  ...props
+	className = "",
+	error,
+	hasError,
+	intent,
+	fill = true,
+	ref,
+	...props
 }) {
-  return (
-    <InputGroup
-      inputRef={ref}
-      fill={fill}
-      intent={intent || (error || hasError ? Intent.DANGER : Intent.NONE)}
-      className={className}
-      {...props}
-    />
-  );
+	return (
+		<InputGroup
+			inputRef={ref}
+			fill={fill}
+			intent={intent || (error || hasError ? Intent.DANGER : Intent.NONE)}
+			className={className}
+			{...props}
+		/>
+	);
 }
 
 /**
@@ -73,23 +81,23 @@ export function Input({
  * @param {boolean} [props.disabled]
  */
 export function Textarea({
-  className = "",
-  error,
-  hasError,
-  intent,
-  fill = true,
-  rows = 3,
-  ref,
-  ...props
+	className = "",
+	error,
+	hasError,
+	intent,
+	fill = true,
+	rows = 3,
+	ref,
+	...props
 }) {
-  return (
-    <BpTextArea
-      inputRef={ref}
-      fill={fill}
-      rows={rows}
-      intent={intent || (error || hasError ? Intent.DANGER : Intent.NONE)}
-      className={className}
-      {...props}
-    />
-  );
+	return (
+		<BpTextArea
+			inputRef={ref}
+			fill={fill}
+			rows={rows}
+			intent={intent || (error || hasError ? Intent.DANGER : Intent.NONE)}
+			className={className}
+			{...props}
+		/>
+	);
 }

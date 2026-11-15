@@ -1,10 +1,10 @@
 import {
-  Card as BpCard,
-  CardList as BpCardList,
-  Elevation,
-  H5,
-  Section as BpSection,
-  SectionCard as BpSectionCard,
+	Card as BpCard,
+	CardList as BpCardList,
+	Elevation,
+	H5,
+	Section as BpSection,
+	SectionCard as BpSectionCard,
 } from "@blueprintjs/core";
 
 export { Elevation };
@@ -23,26 +23,25 @@ export { Elevation };
  * @param {number} [props.tabIndex]
  */
 export function Card({
-  elevation = Elevation.ONE,
-  interactive = false,
-  selected = false,
-  compact = false,
-  className = "",
-  children,
-  ...props
+	elevation = Elevation.ONE,
+	interactive = false,
+	selected = false,
+	compact = false,
+	className = "",
+	children,
+	...props
 }) {
-  return (
-    <BpCard
-      elevation={elevation}
-      interactive={interactive}
-      selected={selected}
-      compact={compact}
-      className={className}
-      {...props}
-    >
-      {children}
-    </BpCard>
-  );
+	return (
+		<BpCard
+			elevation={elevation}
+			interactive={interactive}
+			selected={selected}
+			compact={compact}
+			className={className}
+			{...props}>
+			{children}
+		</BpCard>
+	);
 }
 
 /**
@@ -59,7 +58,7 @@ export function Card({
  * @param {string} [props.className]
  */
 export function Section({ elevation = Elevation.ONE, ...props }) {
-  return <BpSection elevation={elevation} {...props} />;
+	return <BpSection elevation={elevation} {...props} />;
 }
 
 /**
@@ -69,56 +68,58 @@ export function Section({ elevation = Elevation.ONE, ...props }) {
  * @param {boolean} [props.compact]
  * @param {string} [props.className]
  */
-export function SectionCard({ padded = true, compact: _compact = false, ...props }) {
-  return <BpSectionCard padded={padded} {...props} />;
+export function SectionCard({
+	padded = true,
+	compact: _compact = false,
+	...props
+}) {
+	return <BpSectionCard padded={padded} {...props} />;
 }
 
 export function CardList({ bordered = true, ...props }) {
-  return <BpCardList bordered={bordered} {...props} />;
+	return <BpCardList bordered={bordered} {...props} />;
 }
 
 export function CardHeader({ className = "", children, ...props }) {
-  return (
-    <div
-      className={`pb-3 mb-4 border-b border-black/10 dark:border-white/10 ${className}`.trim()}
-      {...props}
-    >
-      {children}
-    </div>
-  );
+	return (
+		<div
+			className={`pb-3 mb-4 border-b border-black/10 dark:border-white/10 ${className}`.trim()}
+			{...props}>
+			{children}
+		</div>
+	);
 }
 
 export function CardTitle({ className = "", children, ...props }) {
-  return (
-    <H5 className={`!mb-0 ${className}`.trim()} {...props}>
-      {children}
-    </H5>
-  );
+	return (
+		<H5 className={`!mb-0 ${className}`.trim()} {...props}>
+			{children}
+		</H5>
+	);
 }
 
 export function CardDescription({ className = "", children, ...props }) {
-  return (
-    <p className={`bp6-text-muted text-xs mt-1 ${className}`.trim()} {...props}>
-      {children}
-    </p>
-  );
+	return (
+		<p className={`bp6-text-muted text-xs mt-1 ${className}`.trim()} {...props}>
+			{children}
+		</p>
+	);
 }
 
 export function CardContent({ className = "", children, ...props }) {
-  return (
-    <div className={className} {...props}>
-      {children}
-    </div>
-  );
+	return (
+		<div className={className} {...props}>
+			{children}
+		</div>
+	);
 }
 
 export function CardFooter({ className = "", children, ...props }) {
-  return (
-    <div
-      className={`pt-3 mt-4 border-t border-black/10 dark:border-white/10 flex items-center gap-2 ${className}`.trim()}
-      {...props}
-    >
-      {children}
-    </div>
-  );
+	return (
+		<div
+			className={`pt-3 mt-4 border-t border-black/10 dark:border-white/10 flex items-center gap-2 ${className}`.trim()}
+			{...props}>
+			{children}
+		</div>
+	);
 }
