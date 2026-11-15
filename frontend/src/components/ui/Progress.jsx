@@ -1,11 +1,11 @@
 import { Intent, ProgressBar } from "@blueprintjs/core";
 
 const intentMap = {
-  default: Intent.PRIMARY,
-  primary: Intent.PRIMARY,
-  success: Intent.SUCCESS,
-  warning: Intent.WARNING,
-  danger: Intent.DANGER,
+	default: Intent.PRIMARY,
+	primary: Intent.PRIMARY,
+	success: Intent.SUCCESS,
+	warning: Intent.WARNING,
+	danger: Intent.DANGER,
 };
 
 /**
@@ -20,32 +20,32 @@ const intentMap = {
  * @param {boolean} [props.showValue]
  */
 export function Progress({
-  value = 0,
-  max = 100,
-  label,
-  showValue = false,
-  variant = "default",
-  className = "",
+	value = 0,
+	max = 100,
+	label,
+	showValue = false,
+	variant = "default",
+	className = "",
 }) {
-  const pct = Math.min(100, Math.max(0, max > 0 ? (value / max) * 100 : 0));
-  const intent = intentMap[variant] || Intent.PRIMARY;
+	const pct = Math.min(100, Math.max(0, max > 0 ? (value / max) * 100 : 0));
+	const intent = intentMap[variant] || Intent.PRIMARY;
 
-  return (
-    <div className={className}>
-      {(label || showValue) && (
-        <div className="flex items-center justify-between text-xs mb-1.5">
-          {label && <span className="bp6-text-muted">{label}</span>}
-          {showValue && (
-            <span className="font-medium tabular-nums">{Math.round(pct)}%</span>
-          )}
-        </div>
-      )}
-      <ProgressBar
-        value={pct / 100}
-        intent={intent}
-        stripes={false}
-        animate={false}
-      />
-    </div>
-  );
+	return (
+		<div className={className}>
+			{(label || showValue) && (
+				<div className="flex items-center justify-between text-xs mb-1.5">
+					{label && <span className="bp6-text-muted">{label}</span>}
+					{showValue && (
+						<span className="font-medium tabular-nums">{Math.round(pct)}%</span>
+					)}
+				</div>
+			)}
+			<ProgressBar
+				value={pct / 100}
+				intent={intent}
+				stripes={false}
+				animate={false}
+			/>
+		</div>
+	);
 }

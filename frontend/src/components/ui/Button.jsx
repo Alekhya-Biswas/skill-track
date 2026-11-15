@@ -2,22 +2,22 @@ import { forwardRef } from "react";
 import { Button as BpButton, Intent } from "@blueprintjs/core";
 
 const variantConfig = {
-  primary: { variant: "solid", intent: Intent.PRIMARY },
-  secondary: { variant: "solid", intent: Intent.NONE },
-  outline: { variant: "outlined", intent: Intent.NONE },
-  outlined: { variant: "outlined", intent: Intent.NONE },
-  danger: { variant: "solid", intent: Intent.DANGER },
-  ghost: { variant: "minimal", intent: Intent.NONE },
-  minimal: { variant: "minimal", intent: Intent.NONE },
-  solid: { variant: "solid", intent: Intent.NONE },
-  success: { variant: "solid", intent: Intent.SUCCESS },
+	primary: { variant: "solid", intent: Intent.PRIMARY },
+	secondary: { variant: "solid", intent: Intent.NONE },
+	outline: { variant: "outlined", intent: Intent.NONE },
+	outlined: { variant: "outlined", intent: Intent.NONE },
+	danger: { variant: "solid", intent: Intent.DANGER },
+	ghost: { variant: "minimal", intent: Intent.NONE },
+	minimal: { variant: "minimal", intent: Intent.NONE },
+	solid: { variant: "solid", intent: Intent.NONE },
+	success: { variant: "solid", intent: Intent.SUCCESS },
 };
 
 const sizeMap = {
-  sm: "small",
-  md: "medium",
-  lg: "large",
-  icon: "medium",
+	sm: "small",
+	md: "medium",
+	lg: "large",
+	icon: "medium",
 };
 
 /**
@@ -41,40 +41,39 @@ const sizeMap = {
 
 /** @type {import("react").ForwardRefExoticComponent<ButtonProps & Record<string, any> & import("react").RefAttributes<any>>} */
 export const Button = forwardRef(
-  /**
-   * @param {ButtonProps & Record<string, any>} props
-   * @param {import("react").Ref<any>} ref
-   */
-  function Button(
-    {
-      children,
-      variant = "primary",
-      intent,
-      size = "md",
-      className = "",
-      disabled = false,
-      loading = false,
-      type = "button",
-      ...props
-    },
-    ref
-  ) {
-  const mappedVariant = variantConfig[variant] || variantConfig.primary;
-  const mappedSize = sizeMap[size] || "medium";
-  return (
-    <BpButton
-      ref={ref}
-      type={type}
-      variant={/** @type {any} */ (mappedVariant.variant)}
-      intent={intent ?? mappedVariant.intent}
-      size={mappedSize}
-      disabled={disabled || loading}
-      loading={loading}
-      className={className}
-      {...props}
-    >
-      {children}
-    </BpButton>
-  );
-  }
+	/**
+	 * @param {ButtonProps & Record<string, any>} props
+	 * @param {import("react").Ref<any>} ref
+	 */
+	function Button(
+		{
+			children,
+			variant = "primary",
+			intent,
+			size = "md",
+			className = "",
+			disabled = false,
+			loading = false,
+			type = "button",
+			...props
+		},
+		ref,
+	) {
+		const mappedVariant = variantConfig[variant] || variantConfig.primary;
+		const mappedSize = sizeMap[size] || "medium";
+		return (
+			<BpButton
+				ref={ref}
+				type={type}
+				variant={/** @type {any} */ (mappedVariant.variant)}
+				intent={intent ?? mappedVariant.intent}
+				size={mappedSize}
+				disabled={disabled || loading}
+				loading={loading}
+				className={className}
+				{...props}>
+				{children}
+			</BpButton>
+		);
+	},
 );

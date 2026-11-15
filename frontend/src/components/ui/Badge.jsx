@@ -1,20 +1,20 @@
 import { Intent, Tag } from "@blueprintjs/core";
 
 const intentMap = {
-  default: Intent.NONE,
-  secondary: Intent.NONE,
-  outline: Intent.NONE,
-  primary: Intent.PRIMARY,
-  blue: Intent.PRIMARY,
-  sky: Intent.PRIMARY,
-  indigo: Intent.PRIMARY,
-  success: Intent.SUCCESS,
-  emerald: Intent.SUCCESS,
-  teal: Intent.SUCCESS,
-  warning: Intent.WARNING,
-  amber: Intent.WARNING,
-  danger: Intent.DANGER,
-  rose: Intent.DANGER,
+	default: Intent.NONE,
+	secondary: Intent.NONE,
+	outline: Intent.NONE,
+	primary: Intent.PRIMARY,
+	blue: Intent.PRIMARY,
+	sky: Intent.PRIMARY,
+	indigo: Intent.PRIMARY,
+	success: Intent.SUCCESS,
+	emerald: Intent.SUCCESS,
+	teal: Intent.SUCCESS,
+	warning: Intent.WARNING,
+	amber: Intent.WARNING,
+	danger: Intent.DANGER,
+	rose: Intent.DANGER,
 };
 
 /**
@@ -28,30 +28,28 @@ const intentMap = {
  * @param {boolean} [props.round]
  */
 export function Badge({
-  children,
-  variant = "default",
-  minimal,
-  round = false,
-  icon,
-  endIcon,
-  className = "",
-  ...props
+	children,
+	variant = "default",
+	minimal,
+	round = false,
+	icon,
+	endIcon,
+	className = "",
+	...props
 }) {
-  const intent = intentMap[variant] || Intent.NONE;
-  const isMinimal =
-    minimal !== undefined ? minimal : variant !== "default";
+	const intent = intentMap[variant] || Intent.NONE;
+	const isMinimal = minimal !== undefined ? minimal : variant !== "default";
 
-  return (
-    <Tag
-      intent={intent}
-      minimal={isMinimal}
-      round={round}
-      icon={icon}
-      endIcon={endIcon}
-      className={className}
-      {...props}
-    >
-      {children}
-    </Tag>
-  );
+	return (
+		<Tag
+			intent={intent}
+			minimal={isMinimal}
+			round={round}
+			icon={icon}
+			endIcon={endIcon}
+			className={className}
+			{...props}>
+			{children}
+		</Tag>
+	);
 }
