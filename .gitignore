@@ -2,24 +2,71 @@
 node_modules/
 frontend/node_modules/
 
-# Environment variables
+# Environment variables & local files
 .env
 .env.*
+*.local
 !.env.example
-!frontend/.env.example
+!**/.env.example
 
 # Build & runtime artifacts
 dist/
-build/
-target/
-*.class
+dist-ssr/
 frontend/dist/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+*.class
 
 # Logs
+logs/
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# IDE & Editor files
+# Java / Maven
+HELP.md
+**/.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.jar
+
+# Eclipse / Spring Tool Suite (STS)
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+# IntelliJ IDEA
 .idea/
-.vscode/
+*.iws
 *.iml
+*.ipr
+
+# NetBeans
+**/nbproject/private/
+**/nbbuild/
+**/nbdist/
+**/.nb-gradle/
+
+# Visual Studio Code
+.vscode/*
+!.vscode/extensions.json
+**/.vscode/*
+!**/.vscode/extensions.json
+
+# OS & temporary files
+.DS_Store
 .directory
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
