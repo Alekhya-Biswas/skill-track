@@ -1,15 +1,3 @@
--- ============================================================
--- SKILL-TRACK: CORE SERVICE DATABASE SEED SCRIPT (POSTGRESQL)
--- ============================================================
--- Purpose: Populates all 19 tables with realistic test data
--- covering every ENUM, CHECK constraint, shared primary key,
--- soft-deleted/discontinued course badge, internal & external
--- certificates, JSONB ATS tokens, and consent-based tracking.
---
--- Default Password for all seeded accounts: Password@123
--- (BCrypt hash cost 10: $2a$10$8.UnVuG9HHgffUDAlk8qfOuVGkqRzgVymGe07xd00DMxs.AQubh4a)
--- ============================================================
-
 BEGIN;
 
 -- Clear existing data and reset identity sequences for idempotent re-runs
