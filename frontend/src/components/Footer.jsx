@@ -14,7 +14,9 @@ export function Footer({ isAuthenticated }) {
 			<BpNavbar className="!bg-transparent !shadow-none">
 				<div className="mx-auto flex w-full max-w-7xl flex-wrap items-center gap-3 px-4 sm:px-6 lg:px-8">
 					<NavbarGroup align={Alignment.START} className="min-w-0 flex-1">
-						<NavbarHeading className="!mr-2 shrink-0 !text-sm">SkillTrack</NavbarHeading>
+						<NavbarHeading className="!mr-2 shrink-0 !text-sm">
+							SkillTrack
+						</NavbarHeading>
 						<span className="bp6-text-muted hidden truncate text-xs sm:inline">
 							Skills, courses, and career outcomes in one place.
 						</span>
@@ -36,7 +38,9 @@ export function Footer({ isAuthenticated }) {
 					)}
 
 					<NavbarGroup align={Alignment.END} className="shrink-0">
-						<span className="bp6-text-muted text-xs">© {new Date().getFullYear()} SkillTrack</span>
+						<span className="bp6-text-muted text-xs">
+							© {new Date().getFullYear()} SkillTrack
+						</span>
 					</NavbarGroup>
 				</div>
 			</BpNavbar>

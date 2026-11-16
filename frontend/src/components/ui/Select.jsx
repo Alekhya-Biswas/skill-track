@@ -2,14 +2,19 @@ import { Button, MenuItem } from "@blueprintjs/core";
 import { Select as BpSelect } from "@blueprintjs/select";
 
 /**
- * @param {object} props
- * @param {any} [props.value]
- * @param {(val: any) => void} [props.onValueChange]
- * @param {Array<{ value: any, label: string, disabled?: boolean }>} [props.options]
- * @param {string} [props.placeholder]
- * @param {string} [props.className]
- * @param {boolean} [props.disabled]
- * @param {string} [props.alignText]
+ * @typedef {{ value: any, label: string, disabled?: boolean }} SelectOption
+ */
+
+/**
+ * @param {{
+ *   value?: any,
+ *   onValueChange?: (val: any) => void,
+ *   options?: SelectOption[],
+ *   placeholder?: string,
+ *   className?: string,
+ *   disabled?: boolean,
+ *   alignText?: import("@blueprintjs/core").Alignment
+ * }} props
  */
 export function Select({
 	value,
@@ -23,6 +28,7 @@ export function Select({
 	const selected =
 		options.find((opt) => String(opt.value) === String(value)) || null;
 
+	/** @type {import("@blueprintjs/select").ItemRenderer<SelectOption>} */
 	const renderItem = (item, { handleClick, modifiers }) => {
 		if (!modifiers.matchesPredicate) return null;
 		const isSelected = selected?.value === item.value;
@@ -57,7 +63,7 @@ export function Select({
 			<Button
 				variant="outlined"
 				fill
-				alignText={/** @type {any} */ (alignText)}
+				alignText={alignText}
 				disabled={disabled}
 				endIcon="double-caret-vertical"
 				text={selected ? selected.label : placeholder}

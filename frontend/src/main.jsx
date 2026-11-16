@@ -11,43 +11,43 @@ import "@fontsource-variable/inter";
 import "./index.css";
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: 1,
-    },
-  },
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+			retry: 1,
+		},
+	},
 });
 
 async function prepareApp() {
-  if (import.meta.env.DEV) {
-    const demoMode = localStorage.getItem("skilltrack_demo_mode") !== "false";
-    if (demoMode) {
-      const { worker } = await import("./mocks/browser");
-      return worker.start({
-        onUnhandledFrame: "bypass",
-      });
-    }
-  }
-  return Promise.resolve();
+	if (import.meta.env.DEV) {
+		const demoMode = localStorage.getItem("skilltrack_demo_mode") !== "false";
+		if (demoMode) {
+			const { worker } = await import("./mocks/browser");
+			return worker.start({
+				onUnhandledFrame: "bypass",
+			});
+		}
+	}
+	return Promise.resolve();
 }
 
 prepareApp().then(() => {
-  ReactDOM.createRoot(document.getElementById("root")).render(
-    <StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <OverlaysProvider>
-            <AuthProvider>
-              <ToastProvider>
-                <BrowserRouter>
-                  <App />
-                </BrowserRouter>
-              </ToastProvider>
-            </AuthProvider>
-          </OverlaysProvider>
-        </ThemeProvider>
-      </QueryClientProvider>
-    </StrictMode>
-  );
+	ReactDOM.createRoot(document.getElementById("root")).render(
+		<StrictMode>
+			<QueryClientProvider client={queryClient}>
+				<ThemeProvider>
+					<OverlaysProvider>
+						<AuthProvider>
+							<ToastProvider>
+								<BrowserRouter>
+									<App />
+								</BrowserRouter>
+							</ToastProvider>
+						</AuthProvider>
+					</OverlaysProvider>
+				</ThemeProvider>
+			</QueryClientProvider>
+		</StrictMode>,
+	);
 });

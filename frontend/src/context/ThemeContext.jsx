@@ -83,7 +83,7 @@ export function ThemeProvider({ children }) {
 
 			const endRadius = Math.hypot(
 				Math.max(x, window.innerWidth - x),
-				Math.max(y, window.innerHeight - y)
+				Math.max(y, window.innerHeight - y),
 			);
 
 			try {
@@ -108,7 +108,7 @@ export function ThemeProvider({ children }) {
 								duration: 450,
 								easing: "ease-in-out",
 								pseudoElement: "::view-transition-new(root)",
-							}
+							},
 						);
 					})
 					.catch(() => {
@@ -118,7 +118,7 @@ export function ThemeProvider({ children }) {
 				setTheme(nextTheme);
 			}
 		},
-		[theme, setTheme]
+		[theme, setTheme],
 	);
 
 	return (
