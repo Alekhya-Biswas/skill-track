@@ -104,11 +104,14 @@ CREATE TABLE course_providers (
     id            BIGINT PRIMARY KEY
                   REFERENCES users(id) ON DELETE CASCADE,
     name          VARCHAR(200) NOT NULL,
+    owner_name    VARCHAR(150) NOT NULL,
     provider_type VARCHAR(50) NOT NULL
                   CHECK (provider_type IN ('GOVERNMENT', 'PRIVATE')),
     phone         VARCHAR(20) NOT NULL,
     description   TEXT,
     website_url   VARCHAR(255),
+    avg_rating    NUMERIC(2,1) NOT NULL DEFAULT 0.0
+                  CHECK (avg_rating >= 0.0 AND avg_rating <= 5.0),
     is_approved   BOOLEAN NOT NULL DEFAULT FALSE,
 
     created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW(),
