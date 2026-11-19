@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Generated files
+package-lock.json
+public/mockServiceWorker.js
+
+# Coverage / caches
+coverage/
+.vite/

@@ -61,7 +61,11 @@ export async function apiClient(
 			headers: {
 				Accept: "application/json",
 				...(body !== undefined && !hasContentType
-					? { "Content-Type": rawBody ? "text/plain" : "application/json" }
+					? {
+							"Content-Type": rawBody
+								? "text/plain"
+								: "application/json",
+						}
 					: {}),
 				...headers,
 			},

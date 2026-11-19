@@ -109,7 +109,8 @@ export default function Employment() {
 		return trainees
 			.filter((t) => !isEmployedStatus(t.employmentStatus))
 			.map((t) => {
-				const reasonText = getUnemployedReasonText(t) || "No reason specified";
+				const reasonText =
+					getUnemployedReasonText(t) || "No reason specified";
 				return {
 					...t,
 					reasonText,
@@ -253,7 +254,9 @@ export default function Employment() {
 							variant="outline"
 							size="sm"
 							icon={<Eye size={13} />}
-							onClick={() => navigate(`/trainees/${row.original.id}`)}>
+							onClick={() =>
+								navigate(`/trainees/${row.original.id}`)
+							}>
 							View Profile
 						</Button>
 					</div>
@@ -264,7 +267,10 @@ export default function Employment() {
 	);
 
 	const pageSize = 8;
-	const pageCount = Math.max(1, Math.ceil(filteredTrainees.length / pageSize));
+	const pageCount = Math.max(
+		1,
+		Math.ceil(filteredTrainees.length / pageSize),
+	);
 	const safePageIndex = Math.min(currentPage - 1, pageCount - 1);
 
 	const table = useReactTable({
@@ -300,9 +306,9 @@ export default function Employment() {
 				<div>
 					<H2 className="!mb-0">Employment Outcomes</H2>
 					<p className="bp6-text-muted text-xs mt-1">
-						Click a status box to inspect trainees, search by trainee name or
-						ID, or browse role and unemployed reason breakdowns ({counts.total}{" "}
-						trainees).
+						Click a status box to inspect trainees, search by
+						trainee name or ID, or browse role and unemployed reason
+						breakdowns ({counts.total} trainees).
 					</p>
 				</div>
 
@@ -343,10 +349,16 @@ export default function Employment() {
 								<span className="text-xs font-medium bp6-text-muted">
 									{box.label}
 								</span>
-								{active && <Badge variant="primary">Active</Badge>}
+								{active && (
+									<Badge variant="primary">Active</Badge>
+								)}
 							</div>
-							<H2 className="!mb-0 !mt-1.5 tabular-nums">{box.count}</H2>
-							<p className="text-xs bp6-text-muted mt-1">{box.note}</p>
+							<H2 className="!mb-0 !mt-1.5 tabular-nums">
+								{box.count}
+							</H2>
+							<p className="text-xs bp6-text-muted mt-1">
+								{box.note}
+							</p>
 						</Card>
 					);
 				})}
@@ -361,18 +373,26 @@ export default function Employment() {
 						<Button
 							variant="minimal"
 							size="sm"
-							onClick={() => updateParams({ status: "UNEMPLOYED" })}>
+							onClick={() =>
+								updateParams({ status: "UNEMPLOYED" })
+							}>
 							Filter Unemployed
 						</Button>
 					}>
 					<SectionCard compact className="flex flex-wrap gap-1.5">
-						{Object.entries(unemployedCategoryCounts).map(([category, cnt]) => (
-							<Badge
-								key={category}
-								variant={category === "Actively Looking" ? "amber" : "rose"}>
-								{category}: {cnt}
-							</Badge>
-						))}
+						{Object.entries(unemployedCategoryCounts).map(
+							([category, cnt]) => (
+								<Badge
+									key={category}
+									variant={
+										category === "Actively Looking"
+											? "amber"
+											: "rose"
+									}>
+									{category}: {cnt}
+								</Badge>
+							),
+						)}
 					</SectionCard>
 					{unemployedTrainees.length > 0 ? (
 						<SectionCard padded={false}>
@@ -392,7 +412,8 @@ export default function Employment() {
 												</span>
 												<Badge
 													variant={
-														t.reasonCategory === "Actively Looking"
+														t.reasonCategory ===
+														"Actively Looking"
 															? "amber"
 															: "outline"
 													}>
@@ -407,7 +428,9 @@ export default function Employment() {
 											variant="outline"
 											size="sm"
 											className="shrink-0"
-											onClick={() => navigate(`/trainees/${t.id}`)}>
+											onClick={() =>
+												navigate(`/trainees/${t.id}`)
+											}>
 											View Profile
 										</Button>
 									</Card>
@@ -430,15 +453,21 @@ export default function Employment() {
 						<Button
 							variant="minimal"
 							size="sm"
-							onClick={() => updateParams({ sort: "role", status: "ALL" })}>
+							onClick={() =>
+								updateParams({ sort: "role", status: "ALL" })
+							}>
 							Sort Table by Role
 						</Button>
 					}>
 					{employedSortedByRole.length > 0 ? (
 						<SectionCard padded={false}>
-							<CardList bordered={false} className="max-h-72 overflow-y-auto">
+							<CardList
+								bordered={false}
+								className="max-h-72 overflow-y-auto">
 								{employedSortedByRole.map((t) => {
-									const statusMeta = getEmploymentMeta(t.employmentStatus);
+									const statusMeta = getEmploymentMeta(
+										t.employmentStatus,
+									);
 									return (
 										<Card
 											key={t.id}
@@ -447,22 +476,32 @@ export default function Employment() {
 											<div className="min-w-0">
 												<div className="flex items-center gap-2 flex-wrap">
 													<span className="text-xs font-semibold truncate">
-														{t.currentRole || "Placed Role"}
+														{t.currentRole ||
+															"Placed Role"}
 													</span>
-													<Badge variant={statusMeta.variant}>
+													<Badge
+														variant={
+															statusMeta.variant
+														}>
 														{statusMeta.label}
 													</Badge>
 												</div>
 												<p className="text-xs bp6-text-muted mt-0.5 truncate">
 													{t.fullName} (#{t.id}){" "}
-													{t.companyName ? `at ${t.companyName}` : ""}
+													{t.companyName
+														? `at ${t.companyName}`
+														: ""}
 												</p>
 											</div>
 											<Button
 												variant="outline"
 												size="sm"
 												className="shrink-0"
-												onClick={() => navigate(`/trainees/${t.id}`)}>
+												onClick={() =>
+													navigate(
+														`/trainees/${t.id}`,
+													)
+												}>
 												View Profile
 											</Button>
 										</Card>
@@ -487,20 +526,31 @@ export default function Employment() {
 						<Input
 							leftIcon="search"
 							value={search}
-							onChange={(e) => updateParams({ search: e.target.value })}
+							onChange={(e) =>
+								updateParams({ search: e.target.value })
+							}
 							placeholder="Search by trainee name, ID, role, or company..."
 						/>
 					</div>
 
 					<div className="w-full sm:w-48">
 						<Select
-							value={isProvider && sortBy === "salary" ? "name" : sortBy}
+							value={
+								isProvider && sortBy === "salary"
+									? "name"
+									: sortBy
+							}
 							onValueChange={(val) => updateParams({ sort: val })}
 							options={[
 								{ value: "name", label: "Sort: Trainee Name" },
 								{ value: "role", label: "Sort: Job Role" },
 								...(!isProvider
-									? [{ value: "salary", label: "Sort: Highest Salary" }]
+									? [
+											{
+												value: "salary",
+												label: "Sort: Highest Salary",
+											},
+										]
 									: []),
 							]}
 						/>
@@ -510,7 +560,9 @@ export default function Employment() {
 						<Button
 							variant="outline"
 							icon={<X size={14} />}
-							onClick={() => updateParams({ search: "", status: "ALL" })}>
+							onClick={() =>
+								updateParams({ search: "", status: "ALL" })
+							}>
 							Clear
 						</Button>
 					)}
@@ -542,13 +594,17 @@ export default function Employment() {
 								{table.getHeaderGroups().map((headerGroup) => (
 									<tr key={headerGroup.id}>
 										{headerGroup.headers.map((header) => {
-											const canSort = header.column.getCanSort();
-											const sorted = header.column.getIsSorted();
+											const canSort =
+												header.column.getCanSort();
+											const sorted =
+												header.column.getIsSorted();
 											return (
 												<th
 													key={header.id}
 													className={
-														header.id === "actions" ? "!text-right" : ""
+														header.id === "actions"
+															? "!text-right"
+															: ""
 													}>
 													{canSort ? (
 														<Button
@@ -556,25 +612,41 @@ export default function Employment() {
 															size="sm"
 															onClick={header.column.getToggleSortingHandler()}
 															endIcon={
-																sorted === "asc" ? (
-																	<ArrowUp size={12} />
-																) : sorted === "desc" ? (
-																	<ArrowDown size={12} />
+																sorted ===
+																"asc" ? (
+																	<ArrowUp
+																		size={
+																			12
+																		}
+																	/>
+																) : sorted ===
+																  "desc" ? (
+																	<ArrowDown
+																		size={
+																			12
+																		}
+																	/>
 																) : (
 																	<ArrowUpDown
-																		size={12}
+																		size={
+																			12
+																		}
 																		className="opacity-60"
 																	/>
 																)
 															}>
 															{flexRender(
-																header.column.columnDef.header,
+																header.column
+																	.columnDef
+																	.header,
 																header.getContext(),
 															)}
 														</Button>
 													) : (
 														flexRender(
-															header.column.columnDef.header,
+															header.column
+																.columnDef
+																.header,
 															header.getContext(),
 														)
 													)}
@@ -605,8 +677,8 @@ export default function Employment() {
 						compact
 						className="flex items-center justify-between text-xs bp6-text-muted">
 						<span>
-							Page {safePageIndex + 1} of {pageCount} ({filteredTrainees.length}{" "}
-							records)
+							Page {safePageIndex + 1} of {pageCount} (
+							{filteredTrainees.length} records)
 						</span>
 						<ButtonGroup>
 							<Button

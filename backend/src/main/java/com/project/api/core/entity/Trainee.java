@@ -42,7 +42,7 @@ public class Trainee {
     @Column(length = 150)
     private String companyName;
 
-    @Column(length = 100)
+    @Column(name = "trainee_current_role", length = 100)
     private String currentRole;
 
     private Double currentSalary;

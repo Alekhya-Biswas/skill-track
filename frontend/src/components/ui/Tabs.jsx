@@ -34,7 +34,8 @@ export function Tabs({
 		if (child.type === TabsList) {
 			listClassName = child.props.className || "";
 			Children.forEach(child.props.children, (tabChild) => {
-				if (!isValidElement(tabChild) || tabChild.type !== TabsTab) return;
+				if (!isValidElement(tabChild) || tabChild.type !== TabsTab)
+					return;
 				tabs.push({
 					value: tabChild.props.value,
 					title: tabChild.props.children,
@@ -65,7 +66,9 @@ export function Tabs({
 			{tabs.map((tab) => {
 				const panelData = panels[tab.value];
 				const panelNode = panelData ? (
-					<div className={panelData.className}>{panelData.children}</div>
+					<div className={panelData.className}>
+						{panelData.children}
+					</div>
 				) : undefined;
 
 				return (

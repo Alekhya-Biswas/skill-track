@@ -36,7 +36,9 @@ export function Progress({
 				<div className="flex items-center justify-between text-xs mb-1.5">
 					{label && <span className="bp6-text-muted">{label}</span>}
 					{showValue && (
-						<span className="font-medium tabular-nums">{Math.round(pct)}%</span>
+						<span className="font-medium tabular-nums">
+							{Math.round(pct)}%
+						</span>
 					)}
 				</div>
 			)}

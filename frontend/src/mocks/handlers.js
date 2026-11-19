@@ -220,7 +220,9 @@ export const handlers = [
 				t.unemployedReason?.toLowerCase().includes("looking"),
 		).length;
 
-		const consented = trainees.filter((t) => Boolean(t.consentGiven)).length;
+		const consented = trainees.filter((t) =>
+			Boolean(t.consentGiven),
+		).length;
 		const responded = trainees.filter((t) =>
 			hasTraineeRespondedFollowUp(t),
 		).length;
@@ -228,7 +230,8 @@ export const handlers = [
 		const reasons = {};
 		trainees.forEach((t) => {
 			if (!isEmployedStatus(t.employmentStatus) && t.unemployedReason) {
-				reasons[t.unemployedReason] = (reasons[t.unemployedReason] || 0) + 1;
+				reasons[t.unemployedReason] =
+					(reasons[t.unemployedReason] || 0) + 1;
 			}
 		});
 
@@ -411,30 +414,36 @@ export const handlers = [
 		return envelope(null, "Consent status updated");
 	}),
 
-	http.patch("/api/v1/trainees/:id/email-preference", ({ params, request }) => {
-		const id = Number(params.id);
-		const url = new URL(request.url);
-		const allow = url.searchParams.get("allowEmails") === "true";
-		const found = trainees.find((t) => t.id === id);
-		if (found) found.allowEmails = allow;
-		return envelope(null, "Email preference updated");
-	}),
+	http.patch(
+		"/api/v1/trainees/:id/email-preference",
+		({ params, request }) => {
+			const id = Number(params.id);
+			const url = new URL(request.url);
+			const allow = url.searchParams.get("allowEmails") === "true";
+			const found = trainees.find((t) => t.id === id);
+			if (found) found.allowEmails = allow;
+			return envelope(null, "Email preference updated");
+		},
+	),
 
-	http.delete("/api/v1/trainees/:id/employment-info", ({ params, request }) => {
-		const id = Number(params.id);
-		const url = new URL(request.url);
-		const forbid = url.searchParams.get("forbidEmails") === "true";
-		const found = trainees.find((t) => t.id === id);
-		if (found) {
-			found.companyName = "";
-			found.currentRole = "";
-			found.currentSalary = null;
-			found.salaryProgression = "";
-			found.unemployedReason = "";
-			if (forbid) found.allowEmails = false;
-		}
-		return envelope(null, "Employment info removed");
-	}),
+	http.delete(
+		"/api/v1/trainees/:id/employment-info",
+		({ params, request }) => {
+			const id = Number(params.id);
+			const url = new URL(request.url);
+			const forbid = url.searchParams.get("forbidEmails") === "true";
+			const found = trainees.find((t) => t.id === id);
+			if (found) {
+				found.companyName = "";
+				found.currentRole = "";
+				found.currentSalary = null;
+				found.salaryProgression = "";
+				found.unemployedReason = "";
+				if (forbid) found.allowEmails = false;
+			}
+			return envelope(null, "Employment info removed");
+		},
+	),
 
 	http.post("/api/v1/trainees/:id/enroll/:courseId", ({ params }) => {
 		const id = Number(params.id);
@@ -521,13 +530,16 @@ export const handlers = [
 		"/api/v1/providers/:providerId/courses",
 		async ({ params, request }) => {
 			const providerId = Number(params.providerId);
-			const body = /** @type {Record<string, any>} */ (await request.json());
+			const body = /** @type {Record<string, any>} */ (
+				await request.json()
+			);
 			const provider = providers.find((p) => p.id === providerId);
 			const newCourse = {
 				id: Date.now(),
 				title: body.title,
 				description: body.description || "",
-				category: body.category || deriveCourseCategory(body.skillsTaught),
+				category:
+					body.category || deriveCourseCategory(body.skillsTaught),
 				providerId,
 				providerName: provider ? provider.name : "Provider",
 				skillsTaught: body.skillsTaught || [],
@@ -544,7 +556,9 @@ export const handlers = [
 		"/api/v1/providers/courses/:courseId",
 		async ({ params, request }) => {
 			const courseId = Number(params.courseId);
-			const body = /** @type {Record<string, any>} */ (await request.json());
+			const body = /** @type {Record<string, any>} */ (
+				await request.json()
+			);
 			const idx = courses.findIndex((c) => c.id === courseId);
 			if (idx !== -1) {
 				courses[idx] = {
@@ -625,11 +639,13 @@ export const handlers = [
 			);
 		const targetRole = (body.targetRole || "Backend Developer").trim();
 		const skillSet = new Set(
-			(body.currentSkills || []).map((s) => String(s).trim().toLowerCase()),
+			(body.currentSkills || []).map((s) =>
+				String(s).trim().toLowerCase(),
+			),
 		);
 		if (body.resumeText) {
-			parseResumeSkills(body.resumeText).detectedTechnologies.forEach((s) =>
-				skillSet.add(s.toLowerCase()),
+			parseResumeSkills(body.resumeText).detectedTechnologies.forEach(
+				(s) => skillSet.add(s.toLowerCase()),
 			);
 		}
 
@@ -683,7 +699,9 @@ export const handlers = [
 				const fitScore =
 					reqs.length === 0
 						? 0
-						: Math.round((matchingSkills.length / reqs.length) * 100);
+						: Math.round(
+								(matchingSkills.length / reqs.length) * 100,
+							);
 				return { roleTitle, fitScore, matchingSkills, growthAreas };
 			})
 			.sort((a, b) => b.fitScore - a.fitScore);
@@ -721,7 +739,8 @@ export const handlers = [
 
 	http.get("/api/v1/ai/course-improvements", ({ request }) => {
 		const url = new URL(request.url);
-		const courseTitle = url.searchParams.get("courseTitle") || "Java Backend";
+		const courseTitle =
+			url.searchParams.get("courseTitle") || "Java Backend";
 		return envelope(
 			{
 				currentCourseTitle: courseTitle,
@@ -787,7 +806,8 @@ export const handlers = [
 	http.get("/api/v1/ai/market-research/documents/:fileName", ({ params }) => {
 		const fileName = decodeURIComponent(String(params.fileName || ""));
 		const content =
-			mockMarketResearchDocs[fileName] || `Document not found: ${fileName}`;
+			mockMarketResearchDocs[fileName] ||
+			`Document not found: ${fileName}`;
 		return envelope(content, "Document content");
 	}),
 ];

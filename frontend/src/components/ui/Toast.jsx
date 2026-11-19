@@ -41,8 +41,12 @@ export function ToastProvider({ children }) {
 			const icon = iconMap[variant] || "info-sign";
 			const message = (
 				<div>
-					{title && <div className="font-semibold text-sm">{title}</div>}
-					{description && <div className="text-xs mt-0.5">{description}</div>}
+					{title && (
+						<div className="font-semibold text-sm">{title}</div>
+					)}
+					{description && (
+						<div className="text-xs mt-0.5">{description}</div>
+					)}
 				</div>
 			);
 

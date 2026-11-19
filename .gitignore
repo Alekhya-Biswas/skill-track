@@ -59,8 +59,10 @@ HELP.md
 # Visual Studio Code
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 **/.vscode/*
 !**/.vscode/extensions.json
+!**/.vscode/settings.json
 
 # OS & temporary files
 .DS_Store

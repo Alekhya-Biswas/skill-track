@@ -24,7 +24,8 @@ export function AuthProvider({ children }) {
 			user: {
 				id: 0,
 				name: "SkillTrack Administrator",
-				email: import.meta.env.VITE_ADMIN_EMAIL || "admin@skilltrack.com",
+				email:
+					import.meta.env.VITE_ADMIN_EMAIL || "admin@skilltrack.com",
 			},
 			isAuthenticated: true,
 		};
@@ -32,7 +33,8 @@ export function AuthProvider({ children }) {
 
 	const [demoMode, setDemoModeState] = useState(() => {
 		return (
-			import.meta.env.DEV && localStorage.getItem(DEMO_MODE_KEY) !== "false"
+			import.meta.env.DEV &&
+			localStorage.getItem(DEMO_MODE_KEY) !== "false"
 		);
 	});
 
@@ -71,16 +73,24 @@ export function AuthProvider({ children }) {
 		}
 
 		const matchesAdmin =
-			cleanInput === adminEmail || cleanInput === "admin" || cleanInput === "0";
+			cleanInput === adminEmail ||
+			cleanInput === "admin" ||
+			cleanInput === "0";
 
 		if (!role) {
 			if (matchesAdmin) {
 				if (adminPassword && password !== adminPassword) {
-					throw new Error("Invalid password for Administrator account.");
+					throw new Error(
+						"Invalid password for Administrator account.",
+					);
 				}
 				const adminSession = {
 					role: "ADMIN",
-					user: { id: 0, name: "System Administrator", email: adminEmail },
+					user: {
+						id: 0,
+						name: "System Administrator",
+						email: adminEmail,
+					},
 					isAuthenticated: true,
 				};
 				setSession(adminSession);
@@ -143,11 +153,17 @@ export function AuthProvider({ children }) {
 		if (role === "ADMIN") {
 			if (matchesAdmin) {
 				if (adminPassword && password !== adminPassword) {
-					throw new Error("Invalid password for Administrator account.");
+					throw new Error(
+						"Invalid password for Administrator account.",
+					);
 				}
 				const adminSession = {
 					role: "ADMIN",
-					user: { id: 0, name: "System Administrator", email: adminEmail },
+					user: {
+						id: 0,
+						name: "System Administrator",
+						email: adminEmail,
+					},
 					isAuthenticated: true,
 				};
 				setSession(adminSession);
@@ -229,7 +245,9 @@ export function AuthProvider({ children }) {
 				newUser = {
 					id: 0,
 					name: "System Administrator",
-					email: import.meta.env.VITE_ADMIN_EMAIL || "admin@skilltrack.com",
+					email:
+						import.meta.env.VITE_ADMIN_EMAIL ||
+						"admin@skilltrack.com",
 				};
 			} else if (role === "COURSE_PROVIDER") {
 				newUser = {

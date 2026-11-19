@@ -29,7 +29,8 @@ const variantConfig = {
 };
 
 function extractPlainText(node) {
-	if (typeof node === "string" || typeof node === "number") return String(node);
+	if (typeof node === "string" || typeof node === "number")
+		return String(node);
 	if (Array.isArray(node)) return node.map(extractPlainText).join("").trim();
 	if (isValidElement(node) && node.props?.children) {
 		return extractPlainText(node.props.children);
@@ -40,7 +41,8 @@ function extractPlainText(node) {
 /** @param {{ open?: boolean, onOpenChange?: (open: boolean) => void, children?: any }} props */
 export function AlertDialog({ open, onOpenChange, children }) {
 	return (
-		<AlertDialogContext.Provider value={{ open: Boolean(open), onOpenChange }}>
+		<AlertDialogContext.Provider
+			value={{ open: Boolean(open), onOpenChange }}>
 			{children}
 		</AlertDialogContext.Provider>
 	);
@@ -134,7 +136,9 @@ export function AlertDialogContent({
 					onConfirm={() => confirmChild?.props?.onClick?.()}
 					onCancel={() => onOpenChange?.(false)}>
 					{title && <H5 className="!mb-1">{title}</H5>}
-					{description && <div className="text-sm">{description}</div>}
+					{description && (
+						<div className="text-sm">{description}</div>
+					)}
 				</BpAlert>
 			);
 		}
@@ -161,7 +165,9 @@ export function AlertDialogContent({
 				)}
 				{extraBody}
 			</BpDialogBody>
-			{footerChildren.length > 0 && <BpDialogFooter actions={footerChildren} />}
+			{footerChildren.length > 0 && (
+				<BpDialogFooter actions={footerChildren} />
+			)}
 		</BpDialog>
 	);
 }

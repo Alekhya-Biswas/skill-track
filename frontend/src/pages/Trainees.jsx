@@ -133,7 +133,9 @@ export default function Trainees() {
 
 	const deleteMutation = useMutation({
 		mutationFn: (id) =>
-			role === "ADMIN" ? adminApi.removeTrainee(id) : traineeApi.delete(id),
+			role === "ADMIN"
+				? adminApi.removeTrainee(id)
+				: traineeApi.delete(id),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["trainees"] });
 			queryClient.invalidateQueries({ queryKey: ["adminDashboard"] });
@@ -194,10 +196,13 @@ export default function Trainees() {
 
 	const onAddTrainee = async (formData) => {
 		try {
-			const fn = role === "ADMIN" ? adminApi.addTrainee : traineeApi.create;
+			const fn =
+				role === "ADMIN" ? adminApi.addTrainee : traineeApi.create;
 			await fn({
 				...formData,
-				employmentStatus: toApiEmploymentStatus(formData.employmentStatus),
+				employmentStatus: toApiEmploymentStatus(
+					formData.employmentStatus,
+				),
 				consentGiven: true,
 				allowEmails: true,
 			});
@@ -234,7 +239,8 @@ export default function Trainees() {
 
 			const matchStatus =
 				statusFilter === "ALL" ||
-				normalizeEmploymentStatus(item.employmentStatus) === statusFilter;
+				normalizeEmploymentStatus(item.employmentStatus) ===
+					statusFilter;
 
 			const matchConsent =
 				consentFilter === "ALL" ||
@@ -302,7 +308,9 @@ export default function Trainees() {
 								</Badge>
 							))}
 							{skills.length > 3 && (
-								<Badge variant="outline">+{skills.length - 3}</Badge>
+								<Badge variant="outline">
+									+{skills.length - 3}
+								</Badge>
 							)}
 							{skills.length === 0 && (
 								<span className="text-xs text-gray-400 dark:text-gray-500">
@@ -354,7 +362,9 @@ export default function Trainees() {
 							variant="outline"
 							size="sm"
 							icon={<Eye size={13} />}
-							onClick={() => navigate(`/trainees/${row.original.id}`)}>
+							onClick={() =>
+								navigate(`/trainees/${row.original.id}`)
+							}>
 							View Profile
 						</Button>
 						{isAdmin && (
@@ -399,7 +409,9 @@ export default function Trainees() {
 	});
 
 	const hasFilters =
-		searchFilter !== "" || statusFilter !== "ALL" || consentFilter !== "ALL";
+		searchFilter !== "" ||
+		statusFilter !== "ALL" ||
+		consentFilter !== "ALL";
 
 	return (
 		<div className="space-y-5">
@@ -407,8 +419,8 @@ export default function Trainees() {
 				<div>
 					<H2 className="!mb-0">Trainees Directory</H2>
 					<p className="bp6-text-muted text-xs mt-1">
-						Search, filter, sort, and inspect trainee outcomes across{" "}
-						{trainees.length} records.
+						Search, filter, sort, and inspect trainee outcomes
+						across {trainees.length} records.
 					</p>
 				</div>
 
@@ -429,7 +441,9 @@ export default function Trainees() {
 						<Input
 							leftIcon="search"
 							value={searchFilter}
-							onChange={(e) => updateParams({ search: e.target.value })}
+							onChange={(e) =>
+								updateParams({ search: e.target.value })
+							}
 							placeholder="Search by name, email, company, role, or ID..."
 						/>
 					</div>
@@ -437,7 +451,9 @@ export default function Trainees() {
 					<div className="w-full md:w-44">
 						<Select
 							value={statusFilter}
-							onValueChange={(val) => updateParams({ status: val })}
+							onValueChange={(val) =>
+								updateParams({ status: val })
+							}
 							options={[
 								{ value: "ALL", label: "All Statuses" },
 								...EMPLOYMENT_STATUS_OPTIONS.map((opt) => ({
@@ -451,7 +467,9 @@ export default function Trainees() {
 					<div className="w-full md:w-44">
 						<Select
 							value={consentFilter}
-							onValueChange={(val) => updateParams({ consent: val })}
+							onValueChange={(val) =>
+								updateParams({ consent: val })
+							}
 							options={[
 								{ value: "ALL", label: "All Consent" },
 								{ value: "true", label: "Consent Granted" },
@@ -465,7 +483,11 @@ export default function Trainees() {
 							variant="outline"
 							icon={<X size={14} />}
 							onClick={() =>
-								updateParams({ search: "", status: "ALL", consent: "ALL" })
+								updateParams({
+									search: "",
+									status: "ALL",
+									consent: "ALL",
+								})
 							}>
 							Clear
 						</Button>
@@ -492,7 +514,11 @@ export default function Trainees() {
 							<Button
 								variant="outline"
 								onClick={() =>
-									updateParams({ search: "", status: "ALL", consent: "ALL" })
+									updateParams({
+										search: "",
+										status: "ALL",
+										consent: "ALL",
+									})
 								}>
 								Reset Filters
 							</Button>
@@ -509,13 +535,17 @@ export default function Trainees() {
 								{table.getHeaderGroups().map((headerGroup) => (
 									<tr key={headerGroup.id}>
 										{headerGroup.headers.map((header) => {
-											const canSort = header.column.getCanSort();
-											const sorted = header.column.getIsSorted();
+											const canSort =
+												header.column.getCanSort();
+											const sorted =
+												header.column.getIsSorted();
 											return (
 												<th
 													key={header.id}
 													className={
-														header.id === "actions" ? "!text-right" : ""
+														header.id === "actions"
+															? "!text-right"
+															: ""
 													}>
 													{canSort ? (
 														<Button
@@ -523,25 +553,41 @@ export default function Trainees() {
 															size="sm"
 															onClick={header.column.getToggleSortingHandler()}
 															endIcon={
-																sorted === "asc" ? (
-																	<ArrowUp size={12} />
-																) : sorted === "desc" ? (
-																	<ArrowDown size={12} />
+																sorted ===
+																"asc" ? (
+																	<ArrowUp
+																		size={
+																			12
+																		}
+																	/>
+																) : sorted ===
+																  "desc" ? (
+																	<ArrowDown
+																		size={
+																			12
+																		}
+																	/>
 																) : (
 																	<ArrowUpDown
-																		size={12}
+																		size={
+																			12
+																		}
 																		className="opacity-60"
 																	/>
 																)
 															}>
 															{flexRender(
-																header.column.columnDef.header,
+																header.column
+																	.columnDef
+																	.header,
 																header.getContext(),
 															)}
 														</Button>
 													) : (
 														flexRender(
-															header.column.columnDef.header,
+															header.column
+																.columnDef
+																.header,
 															header.getContext(),
 														)
 													)}
@@ -572,8 +618,8 @@ export default function Trainees() {
 						compact
 						className="flex items-center justify-between text-xs bp6-text-muted">
 						<span>
-							Page {safePageIndex + 1} of {pageCount} ({filteredData.length}{" "}
-							trainees)
+							Page {safePageIndex + 1} of {pageCount} (
+							{filteredData.length} trainees)
 						</span>
 						<ButtonGroup>
 							<Button
@@ -603,11 +649,14 @@ export default function Trainees() {
 					<DialogHeader>
 						<DialogTitle>Add New Trainee</DialogTitle>
 						<DialogDescription>
-							Create a new trainee record in the SkillTrack directory.
+							Create a new trainee record in the SkillTrack
+							directory.
 						</DialogDescription>
 					</DialogHeader>
 
-					<form onSubmit={handleSubmit(onAddTrainee)} className="space-y-3.5">
+					<form
+						onSubmit={handleSubmit(onAddTrainee)}
+						className="space-y-3.5">
 						<Field
 							label="Full Name"
 							required
@@ -650,10 +699,12 @@ export default function Trainees() {
 									setAddStatus(val);
 									setAddValue("employmentStatus", val);
 								}}
-								options={EMPLOYMENT_STATUS_OPTIONS.map((opt) => ({
-									value: opt.value,
-									label: opt.label,
-								}))}
+								options={EMPLOYMENT_STATUS_OPTIONS.map(
+									(opt) => ({
+										value: opt.value,
+										label: opt.label,
+									}),
+								)}
 							/>
 						</Field>
 
@@ -712,11 +763,13 @@ export default function Trainees() {
 				}}>
 				<AlertDialogContent variant="danger">
 					<AlertDialogHeader>
-						<AlertDialogTitle>Remove Trainee Record?</AlertDialogTitle>
+						<AlertDialogTitle>
+							Remove Trainee Record?
+						</AlertDialogTitle>
 						<AlertDialogDescription>
 							This will permanently remove{" "}
-							<strong>{deleteTarget?.fullName}</strong> from the registry. This
-							action cannot be undone.
+							<strong>{deleteTarget?.fullName}</strong> from the
+							registry. This action cannot be undone.
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>
@@ -732,7 +785,8 @@ export default function Trainees() {
 							size="sm"
 							loading={deleteMutation.isPending}
 							onClick={() =>
-								deleteTarget && deleteMutation.mutate(deleteTarget.id)
+								deleteTarget &&
+								deleteMutation.mutate(deleteTarget.id)
 							}>
 							Remove Trainee
 						</Button>

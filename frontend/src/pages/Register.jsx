@@ -137,7 +137,9 @@ export default function Register() {
 			});
 			navigate("/dashboard");
 		} catch (err) {
-			setServerError(err.message || "Failed to register course provider.");
+			setServerError(
+				err.message || "Failed to register course provider.",
+			);
 		} finally {
 			setSubmitting(false);
 		}
@@ -149,14 +151,17 @@ export default function Register() {
 				<div className="text-center mb-6">
 					<H2 className="!mb-1">Create your SkillTrack Account</H2>
 					<p className="bp6-text-muted text-xs">
-						Register as a Trainee to manage outcomes, or as a Course Provider to
-						publish courses.
+						Register as a Trainee to manage outcomes, or as a Course
+						Provider to publish courses.
 					</p>
 				</div>
 
-				<Callout variant="info" title="Administrator Notice" className="mb-5">
-					Admin accounts have no public registration and are created directly in
-					the database by the database owner.
+				<Callout
+					variant="info"
+					title="Administrator Notice"
+					className="mb-5">
+					Admin accounts have no public registration and are created
+					directly in the database by the database owner.
 				</Callout>
 
 				{serverError && (
@@ -234,10 +239,12 @@ export default function Register() {
 									setTraineeStatus(val);
 									setTraineeValue("employmentStatus", val);
 								}}
-								options={EMPLOYMENT_STATUS_OPTIONS.map((opt) => ({
-									value: opt.value,
-									label: opt.label,
-								}))}
+								options={EMPLOYMENT_STATUS_OPTIONS.map(
+									(opt) => ({
+										value: opt.value,
+										label: opt.label,
+									}),
+								)}
 							/>
 						</Field>
 
@@ -330,8 +337,8 @@ export default function Register() {
 						</Field>
 
 						<p className="bp6-text-muted text-xs leading-normal">
-							Course provider accounts may require administrator review before
-							onboarding courses.
+							Course provider accounts may require administrator
+							review before onboarding courses.
 						</p>
 
 						<Button

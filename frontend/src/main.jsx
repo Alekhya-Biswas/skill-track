@@ -21,7 +21,8 @@ const queryClient = new QueryClient({
 
 async function prepareApp() {
 	if (import.meta.env.DEV) {
-		const demoMode = localStorage.getItem("skilltrack_demo_mode") !== "false";
+		const demoMode =
+			localStorage.getItem("skilltrack_demo_mode") !== "false";
 		if (demoMode) {
 			const { worker } = await import("./mocks/browser");
 			return worker.start({

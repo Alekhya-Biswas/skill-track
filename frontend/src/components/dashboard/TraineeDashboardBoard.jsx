@@ -101,14 +101,18 @@ export function TraineeDashboardBoard() {
 	}, [profile, courses]);
 
 	if (profileLoading || coursesLoading) {
-		return <LoadingState label="Loading your trainee dashboard..." rows={4} />;
+		return (
+			<LoadingState label="Loading your trainee dashboard..." rows={4} />
+		);
 	}
 
 	if (profileError || !profile) {
 		return (
 			<ErrorState
 				title="Failed to load your dashboard"
-				error={profileErrObj || new Error("Trainee profile unavailable.")}
+				error={
+					profileErrObj || new Error("Trainee profile unavailable.")
+				}
 				onRetry={refetchProfile}
 			/>
 		);
@@ -127,8 +131,8 @@ export function TraineeDashboardBoard() {
 				<div>
 					<H2 className="!mb-0">Trainee Dashboard</H2>
 					<p className="bp6-text-muted text-xs mt-1">
-						Welcome back, {profile.fullName}. Track courses, earned skills, and
-						career outcomes.
+						Welcome back, {profile.fullName}. Track courses, earned
+						skills, and career outcomes.
 					</p>
 				</div>
 
@@ -159,7 +163,12 @@ export function TraineeDashboardBoard() {
 				<Link to="/me?tab=courses" className="block">
 					<Card interactive className="h-full">
 						<EntityTitle
-							icon={<GraduationCap size={18} className="bp6-text-muted" />}
+							icon={
+								<GraduationCap
+									size={18}
+									className="bp6-text-muted"
+								/>
+							}
 							title="Active Enrollments"
 							subtitle="Manage enrollments →"
 						/>
@@ -172,12 +181,19 @@ export function TraineeDashboardBoard() {
 				<Link to="/me?tab=courses" className="block">
 					<Card interactive className="h-full">
 						<EntityTitle
-							icon={<CheckCircle2 size={18} className="bp6-text-muted" />}
+							icon={
+								<CheckCircle2
+									size={18}
+									className="bp6-text-muted"
+								/>
+							}
 							title="Courses Completed"
 							subtitle={`${completionPct}% of enrolled journey`}
 						/>
 						<div className="mt-3 space-y-2">
-							<H2 className="!mb-0 tabular-nums">{completedCourses.length}</H2>
+							<H2 className="!mb-0 tabular-nums">
+								{completedCourses.length}
+							</H2>
 							<Progress value={completionPct} variant="success" />
 						</div>
 					</Card>
@@ -186,25 +202,38 @@ export function TraineeDashboardBoard() {
 				<Link to="/me?tab=skills" className="block">
 					<Card interactive className="h-full">
 						<EntityTitle
-							icon={<Award size={18} className="bp6-text-muted" />}
+							icon={
+								<Award size={18} className="bp6-text-muted" />
+							}
 							title="Earned Skills"
 							subtitle={`${certifications.length} certifications →`}
 						/>
-						<H2 className="!mb-0 !mt-3 tabular-nums">{skills.length}</H2>
+						<H2 className="!mb-0 !mt-3 tabular-nums">
+							{skills.length}
+						</H2>
 					</Card>
 				</Link>
 
 				<Link to="/my-employment" className="block">
 					<Card interactive className="h-full">
 						<EntityTitle
-							icon={<BriefcaseBusiness size={18} className="bp6-text-muted" />}
+							icon={
+								<BriefcaseBusiness
+									size={18}
+									className="bp6-text-muted"
+								/>
+							}
 							title="Employment Status"
 							subtitle={
-								profile.currentRole || profile.companyName || "Update details →"
+								profile.currentRole ||
+								profile.companyName ||
+								"Update details →"
 							}
 						/>
 						<div className="mt-3">
-							<Badge variant={statusBadge.variant}>{statusBadge.label}</Badge>
+							<Badge variant={statusBadge.variant}>
+								{statusBadge.label}
+							</Badge>
 						</div>
 					</Card>
 				</Link>
@@ -239,14 +268,16 @@ export function TraineeDashboardBoard() {
 										<span className="text-xs font-medium truncate">
 											{title}
 										</span>
-										<Badge variant="primary">In Progress</Badge>
+										<Badge variant="primary">
+											In Progress
+										</Badge>
 									</Card>
 								))}
 							</CardList>
 						) : (
 							<p className="text-xs bp6-text-muted">
-								No active enrollments. Pick a suggested course on the right to
-								begin.
+								No active enrollments. Pick a suggested course
+								on the right to begin.
 							</p>
 						)}
 					</SectionCard>
@@ -265,7 +296,8 @@ export function TraineeDashboardBoard() {
 							</div>
 						) : (
 							<p className="text-xs bp6-text-muted">
-								Complete enrolled courses to earn skills automatically.
+								Complete enrolled courses to earn skills
+								automatically.
 							</p>
 						)}
 					</SectionCard>
@@ -278,7 +310,9 @@ export function TraineeDashboardBoard() {
 							<span>
 								Consent:{" "}
 								<strong className="font-medium">
-									{profile.consentGiven ? "Granted" : "Pending"}
+									{profile.consentGiven
+										? "Granted"
+										: "Pending"}
 								</strong>
 							</span>
 						</div>
@@ -309,8 +343,8 @@ export function TraineeDashboardBoard() {
 					{recommendedCourses.length === 0 ? (
 						<SectionCard>
 							<p className="text-xs bp6-text-muted py-6 text-center">
-								You are already enrolled in or have completed all catalog
-								courses.
+								You are already enrolled in or have completed
+								all catalog courses.
 							</p>
 						</SectionCard>
 					) : (
@@ -326,19 +360,26 @@ export function TraineeDashboardBoard() {
 												<span className="text-sm font-medium">
 													{course.title}
 												</span>
-												{course.newSkills.length > 0 && (
-													<Badge variant="default">Suggested</Badge>
+												{course.newSkills.length >
+													0 && (
+													<Badge variant="default">
+														Suggested
+													</Badge>
 												)}
 											</div>
 											<div className="text-xs bp6-text-muted">
 												{course.providerName}
 											</div>
 											<div className="flex flex-wrap gap-1">
-												{(course.skillsTaught || []).map((skill) => (
+												{(
+													course.skillsTaught || []
+												).map((skill) => (
 													<Badge
 														key={skill}
 														variant={
-															course.newSkills.includes(skill)
+															course.newSkills.includes(
+																skill,
+															)
 																? "secondary"
 																: "outline"
 														}>
@@ -354,7 +395,9 @@ export function TraineeDashboardBoard() {
 											icon={<Plus size={13} />}
 											className="shrink-0"
 											loading={enrollMutation.isPending}
-											onClick={() => enrollMutation.mutate(course.id)}>
+											onClick={() =>
+												enrollMutation.mutate(course.id)
+											}>
 											Enroll
 										</Button>
 									</Card>

@@ -100,7 +100,9 @@ export function CardTitle({ className = "", children, ...props }) {
 
 export function CardDescription({ className = "", children, ...props }) {
 	return (
-		<p className={`bp6-text-muted text-xs mt-1 ${className}`.trim()} {...props}>
+		<p
+			className={`bp6-text-muted text-xs mt-1 ${className}`.trim()}
+			{...props}>
 			{children}
 		</p>
 	);

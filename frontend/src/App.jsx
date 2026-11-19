@@ -44,7 +44,8 @@ export default function App() {
 					<Route
 						path="/dashboard"
 						element={
-							<RequireRole roles={["ADMIN", "COURSE_PROVIDER", "TRAINEE"]}>
+							<RequireRole
+								roles={["ADMIN", "COURSE_PROVIDER", "TRAINEE"]}>
 								<Dashboard />
 							</RequireRole>
 						}
@@ -114,7 +115,10 @@ export default function App() {
 
 					{/* Open to All Roles */}
 					<Route path="/courses" element={<CoursesAndProviders />} />
-					<Route path="/providers/:id" element={<ProviderProfile />} />
+					<Route
+						path="/providers/:id"
+						element={<ProviderProfile />}
+					/>
 					<Route path="/skills" element={<Skills />} />
 
 					<Route
@@ -128,7 +132,9 @@ export default function App() {
 										description="The page you requested does not exist or has been moved."
 										action={
 											<Link to="/">
-												<Button variant="primary">Return Home</Button>
+												<Button variant="primary">
+													Return Home
+												</Button>
 											</Link>
 										}
 									/>

@@ -57,21 +57,41 @@ export function Navbar() {
 
 		if (role === "ADMIN") {
 			return [
-				{ name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+				{
+					name: "Dashboard",
+					path: "/dashboard",
+					icon: LayoutDashboard,
+				},
 				{ name: "Trainees", path: "/trainees", icon: Users },
-				{ name: "Courses & Providers", path: "/courses", icon: GraduationCap },
+				{
+					name: "Courses & Providers",
+					path: "/courses",
+					icon: GraduationCap,
+				},
 				{ name: "Skills", path: "/skills", icon: Award },
-				{ name: "Employment", path: "/employment", icon: BriefcaseBusiness },
+				{
+					name: "Employment",
+					path: "/employment",
+					icon: BriefcaseBusiness,
+				},
 			];
 		}
 
 		if (role === "COURSE_PROVIDER") {
 			return [
-				{ name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
+				{
+					name: "Dashboard",
+					path: "/dashboard",
+					icon: LayoutDashboard,
+				},
 				{ name: "Trainees", path: "/trainees", icon: Users },
 				{ name: "Courses", path: "/courses", icon: GraduationCap },
 				{ name: "Skills", path: "/skills", icon: Award },
-				{ name: "Employment", path: "/employment", icon: BriefcaseBusiness },
+				{
+					name: "Employment",
+					path: "/employment",
+					icon: BriefcaseBusiness,
+				},
 				{ name: "Course AI", path: "/provider-ai", icon: Sparkles },
 			];
 		}
@@ -136,7 +156,9 @@ export function Navbar() {
 				<div className="max-w-7xl mx-auto h-full px-2 sm:px-4 flex items-center justify-between gap-3">
 					<NavbarGroup align={Alignment.START} className="min-w-0">
 						<NavbarHeading className="!mr-2 shrink-0">
-							<Link to="/" className="font-semibold tracking-tight">
+							<Link
+								to="/"
+								className="font-semibold tracking-tight">
 								SkillTrack
 							</Link>
 						</NavbarHeading>
@@ -151,11 +173,18 @@ export function Navbar() {
 									const NavIcon = item.icon;
 									const active = isNavItemActive(item.path);
 									return (
-										<Link key={item.path} to={item.path} className="shrink-0">
+										<Link
+											key={item.path}
+											to={item.path}
+											className="shrink-0">
 											<Button
 												variant="minimal"
 												active={active}
-												intent={active ? Intent.PRIMARY : Intent.NONE}
+												intent={
+													active
+														? Intent.PRIMARY
+														: Intent.NONE
+												}
 												icon={<NavIcon size={14} />}>
 												{item.name}
 											</Button>
@@ -166,7 +195,9 @@ export function Navbar() {
 						)}
 					</NavbarGroup>
 
-					<NavbarGroup align={Alignment.END} className="shrink-0 gap-2">
+					<NavbarGroup
+						align={Alignment.END}
+						className="shrink-0 gap-2">
 						{import.meta.env.DEV && demoMode && (
 							<Tag
 								intent={Intent.PRIMARY}
@@ -184,10 +215,22 @@ export function Navbar() {
 								variant="outlined"
 								onClick={toggleTheme}
 								aria-label={
-									isDark ? "Switch to light mode" : "Switch to dark mode"
+									isDark
+										? "Switch to light mode"
+										: "Switch to dark mode"
 								}
-								title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-								icon={isDark ? <Sun size={14} /> : <Moon size={14} />}
+								title={
+									isDark
+										? "Switch to light mode"
+										: "Switch to dark mode"
+								}
+								icon={
+									isDark ? (
+										<Sun size={14} />
+									) : (
+										<Moon size={14} />
+									)
+								}
 							/>
 						)}
 
@@ -212,8 +255,12 @@ export function Navbar() {
 												<MenuItem
 													key={item.path}
 													icon={<NavIcon size={14} />}
-													active={isNavItemActive(item.path)}
-													onClick={() => navigate(item.path)}>
+													active={isNavItemActive(
+														item.path,
+													)}
+													onClick={() =>
+														navigate(item.path)
+													}>
 													{item.name}
 												</MenuItem>
 											);
@@ -234,8 +281,12 @@ export function Navbar() {
 											endIcon={<ChevronDown size={13} />}
 											className="hidden sm:inline-flex"
 											title="Dev-only Role Switcher">
-											<span className="bp6-text-muted mr-1">Dev:</span>
-											<span>{currentRoleBadge.label}</span>
+											<span className="bp6-text-muted mr-1">
+												Dev:
+											</span>
+											<span>
+												{currentRoleBadge.label}
+											</span>
 										</Button>
 									)}
 								/>
@@ -272,7 +323,9 @@ export function Navbar() {
 									<MenuItem
 										icon={<Radio size={14} />}
 										onClick={() => setDemoMode(!demoMode)}>
-										{demoMode ? "Disable Demo Mode" : "Enable Demo Mode"}
+										{demoMode
+											? "Disable Demo Mode"
+											: "Enable Demo Mode"}
 									</MenuItem>
 								</MenuContent>
 							</Menu>
@@ -288,7 +341,12 @@ export function Navbar() {
 											aria-label="Open profile menu"
 											endIcon={<ChevronDown size={14} />}
 											icon={
-												<Avatar fallback={user?.name || "User"} size="sm" />
+												<Avatar
+													fallback={
+														user?.name || "User"
+													}
+													size="sm"
+												/>
 											}>
 											<span className="hidden lg:inline">
 												{user?.name || "Account"}
@@ -310,11 +368,16 @@ export function Navbar() {
 											}
 											active={isProfileActive}
 											labelElement={
-												<Badge variant={currentRoleBadge.variant}>
+												<Badge
+													variant={
+														currentRoleBadge.variant
+													}>
 													{currentRoleBadge.label}
 												</Badge>
 											}
-											onClick={() => navigate(profilePath)}>
+											onClick={() =>
+												navigate(profilePath)
+											}>
 											<div className="flex flex-col leading-tight py-0.5">
 												<span className="font-semibold text-[13px]">
 													{user?.name || "Account"}
@@ -326,12 +389,17 @@ export function Navbar() {
 										</MenuItem>
 									) : (
 										<>
-											<MenuSeparator title={user?.name || "Account"} />
+											<MenuSeparator
+												title={user?.name || "Account"}
+											/>
 											<div className="px-2 py-1 flex items-center justify-between gap-2 text-xs">
 												<span className="bp6-text-muted truncate">
 													{user?.email}
 												</span>
-												<Badge variant={currentRoleBadge.variant}>
+												<Badge
+													variant={
+														currentRoleBadge.variant
+													}>
 													{currentRoleBadge.label}
 												</Badge>
 											</div>

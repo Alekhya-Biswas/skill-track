@@ -99,7 +99,9 @@ export default function MyEmployment() {
 			employmentStatus: status,
 			companyName: profile.companyName || "",
 			currentRole: profile.currentRole || "",
-			currentSalary: profile.currentSalary ? String(profile.currentSalary) : "",
+			currentSalary: profile.currentSalary
+				? String(profile.currentSalary)
+				: "",
 			salaryProgression: profile.salaryProgression || "",
 			unemployedReason: profile.unemployedReason || "",
 		});
@@ -122,7 +124,9 @@ export default function MyEmployment() {
 				phoneNumber: profile.phoneNumber || "",
 				projectsSummary: profile.projectsSummary || "",
 				projectRepoUrl: profile.projectRepoUrl || "",
-				employmentStatus: toApiEmploymentStatus(formData.employmentStatus),
+				employmentStatus: toApiEmploymentStatus(
+					formData.employmentStatus,
+				),
 				companyName: employed ? formData.companyName || "" : "",
 				currentRole: employed ? formData.currentRole || "" : "",
 				currentSalary:
@@ -130,7 +134,9 @@ export default function MyEmployment() {
 						? Number(formData.currentSalary)
 						: null,
 				salaryProgression: formData.salaryProgression || "",
-				unemployedReason: employed ? "" : formData.unemployedReason || "",
+				unemployedReason: employed
+					? ""
+					: formData.unemployedReason || "",
 			};
 
 			const updated = await traineeApi.update(traineeId, payload);
@@ -214,7 +220,9 @@ export default function MyEmployment() {
 	});
 
 	if (isLoading) {
-		return <LoadingState label="Loading your employment details..." rows={4} />;
+		return (
+			<LoadingState label="Loading your employment details..." rows={4} />
+		);
 	}
 
 	if (isError || !profile) {
@@ -255,20 +263,31 @@ export default function MyEmployment() {
 			<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 				<Card>
 					<EntityTitle
-						icon={<BriefcaseBusiness size={18} className="bp6-text-muted" />}
+						icon={
+							<BriefcaseBusiness
+								size={18}
+								className="bp6-text-muted"
+							/>
+						}
 						title="Current Status"
 						subtitle={statusMeta.note}
 					/>
 					<div className="mt-3">
-						<Badge variant={statusMeta.variant}>{statusMeta.label}</Badge>
+						<Badge variant={statusMeta.variant}>
+							{statusMeta.label}
+						</Badge>
 					</div>
 				</Card>
 
 				<Card>
 					<EntityTitle
-						icon={<Building2 size={18} className="bp6-text-muted" />}
+						icon={
+							<Building2 size={18} className="bp6-text-muted" />
+						}
 						title="Role & Organization"
-						subtitle={profile.companyName || "No organization recorded"}
+						subtitle={
+							profile.companyName || "No organization recorded"
+						}
 					/>
 					<p className="text-base font-semibold mt-3 truncate">
 						{profile.currentRole || "Not specified"}
@@ -277,9 +296,14 @@ export default function MyEmployment() {
 
 				<Card>
 					<EntityTitle
-						icon={<IndianRupee size={18} className="bp6-text-muted" />}
+						icon={
+							<IndianRupee size={18} className="bp6-text-muted" />
+						}
 						title="Current Compensation"
-						subtitle={profile.salaryProgression || "No progression recorded"}
+						subtitle={
+							profile.salaryProgression ||
+							"No progression recorded"
+						}
 					/>
 					<p className="text-base font-semibold mt-3 tabular-nums">
 						{profile.currentSalary
@@ -320,7 +344,9 @@ export default function MyEmployment() {
 						description="Permits tracking employment outcomes beyond graduation."
 						checked={Boolean(profile.consentGiven)}
 						disabled={consentMutation.isPending}
-						onCheckedChange={(checked) => consentMutation.mutate(checked)}
+						onCheckedChange={(checked) =>
+							consentMutation.mutate(checked)
+						}
 					/>
 
 					<Divider />
@@ -330,15 +356,20 @@ export default function MyEmployment() {
 						description="Receive quarterly reminders to refresh your employment status."
 						checked={Boolean(profile.allowEmails)}
 						disabled={
-							Boolean(profile.adminStoppedEmail) || emailPrefMutation.isPending
+							Boolean(profile.adminStoppedEmail) ||
+							emailPrefMutation.isPending
 						}
-						onCheckedChange={(checked) => emailPrefMutation.mutate(checked)}
+						onCheckedChange={(checked) =>
+							emailPrefMutation.mutate(checked)
+						}
 					/>
 
 					{profile.adminStoppedEmail && (
-						<Callout variant="warning" title="Admin Email Stop Active">
-							An administrator has paused outbound follow-up emails for your
-							account.
+						<Callout
+							variant="warning"
+							title="Admin Email Stop Active">
+							An administrator has paused outbound follow-up
+							emails for your account.
 						</Callout>
 					)}
 				</SectionCard>
@@ -350,8 +381,8 @@ export default function MyEmployment() {
 					<DialogHeader>
 						<DialogTitle>Update Employment Details</DialogTitle>
 						<DialogDescription>
-							Keep your current role, employer, salary progression, or
-							job-search status up to date.
+							Keep your current role, employer, salary
+							progression, or job-search status up to date.
 						</DialogDescription>
 					</DialogHeader>
 
@@ -365,7 +396,9 @@ export default function MyEmployment() {
 								setValue("employmentStatus", val);
 							}}
 							register={register}
-							onSelectPresetReason={(val) => setValue("unemployedReason", val)}
+							onSelectPresetReason={(val) =>
+								setValue("unemployedReason", val)
+							}
 						/>
 
 						<DialogFooter>

@@ -13,7 +13,9 @@ export function Footer({ isAuthenticated }) {
 		<footer className="border-t border-black/10 bg-white/70 dark:border-white/10 dark:bg-[#252a33]">
 			<BpNavbar className="!bg-transparent !shadow-none">
 				<div className="mx-auto flex w-full max-w-7xl flex-wrap items-center gap-3 px-4 sm:px-6 lg:px-8">
-					<NavbarGroup align={Alignment.START} className="min-w-0 flex-1">
+					<NavbarGroup
+						align={Alignment.START}
+						className="min-w-0 flex-1">
 						<NavbarHeading className="!mr-2 shrink-0 !text-sm">
 							SkillTrack
 						</NavbarHeading>
@@ -23,7 +25,9 @@ export function Footer({ isAuthenticated }) {
 					</NavbarGroup>
 
 					{!isAuthenticated && (
-						<NavbarGroup align={Alignment.END} className="shrink-0 gap-2">
+						<NavbarGroup
+							align={Alignment.END}
+							className="shrink-0 gap-2">
 							<Link to="/login">
 								<Button variant="minimal" size="sm">
 									Log In

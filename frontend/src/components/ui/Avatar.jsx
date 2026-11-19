@@ -28,7 +28,11 @@ export function Avatar({
 			} ${className}`}
 			{...props}>
 			{src ? (
-				<img src={src} alt={alt} className="h-full w-full object-cover" />
+				<img
+					src={src}
+					alt={alt}
+					className="h-full w-full object-cover"
+				/>
 			) : (
 				<span>{fallback ? getInitials(fallback) : "?"}</span>
 			)}

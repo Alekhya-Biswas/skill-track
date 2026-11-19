@@ -54,7 +54,8 @@ export default function Login() {
 			navigate("/dashboard");
 		} catch (err) {
 			setError(
-				err.message || "Failed to sign in. Please verify your credentials.",
+				err.message ||
+					"Failed to sign in. Please verify your credentials.",
 			);
 			regenerateCaptcha();
 		} finally {
@@ -106,10 +107,26 @@ export default function Login() {
 								<Button
 									variant="minimal"
 									size="sm"
-									icon={showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
-									onClick={() => setShowPassword((prev) => !prev)}
-									aria-label={showPassword ? "Hide password" : "Show password"}
-									title={showPassword ? "Hide password" : "Show password"}
+									icon={
+										showPassword ? (
+											<EyeOff size={14} />
+										) : (
+											<Eye size={14} />
+										)
+									}
+									onClick={() =>
+										setShowPassword((prev) => !prev)
+									}
+									aria-label={
+										showPassword
+											? "Hide password"
+											: "Show password"
+									}
+									title={
+										showPassword
+											? "Hide password"
+											: "Show password"
+									}
 								/>
 							}
 						/>
@@ -138,7 +155,9 @@ export default function Login() {
 								type="text"
 								leftIcon="shield"
 								value={captchaInput}
-								onChange={(e) => setCaptchaInput(e.target.value)}
+								onChange={(e) =>
+									setCaptchaInput(e.target.value)
+								}
 								placeholder="Enter captcha code"
 								autoComplete="off"
 								spellCheck={false}

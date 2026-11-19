@@ -87,7 +87,9 @@ export default function ProviderProfile() {
 						action={
 							<Button
 								variant="primary"
-								onClick={() => navigate(`/providers/${myProviderId}`)}>
+								onClick={() =>
+									navigate(`/providers/${myProviderId}`)
+								}>
 								View My Profile
 							</Button>
 						}
@@ -108,13 +110,22 @@ export default function ProviderProfile() {
 					variant="ghost"
 					icon={<ArrowLeft size={14} />}
 					onClick={() =>
-						navigate(isProviderRole ? "/courses" : "/courses?tab=providers")
+						navigate(
+							isProviderRole
+								? "/courses"
+								: "/courses?tab=providers",
+						)
 					}>
-					{isProviderRole ? "Back to My Courses" : "Back to Providers"}
+					{isProviderRole
+						? "Back to My Courses"
+						: "Back to Providers"}
 				</Button>
 				<ErrorState
 					title="Unable to load provider profile"
-					error={providerErrObj || new Error("Course provider not found.")}
+					error={
+						providerErrObj ||
+						new Error("Course provider not found.")
+					}
 					onRetry={refetchProvider}
 				/>
 			</div>
@@ -130,9 +141,13 @@ export default function ProviderProfile() {
 				variant="ghost"
 				icon={<ArrowLeft size={14} />}
 				onClick={() =>
-					navigate(isProviderRole ? "/courses" : "/courses?tab=providers")
+					navigate(
+						isProviderRole ? "/courses" : "/courses?tab=providers",
+					)
 				}>
-				{isProviderRole ? "Back to My Courses" : "Back to Courses & Providers"}
+				{isProviderRole
+					? "Back to My Courses"
+					: "Back to Courses & Providers"}
 			</Button>
 
 			<Card>
@@ -151,7 +166,8 @@ export default function ProviderProfile() {
 									target="_blank"
 									rel="noreferrer"
 									className="inline-flex items-center gap-1 font-medium underline">
-									<ExternalLink size={12} /> {provider.website}
+									<ExternalLink size={12} />{" "}
+									{provider.website}
 								</a>
 							)}
 						</div>
@@ -169,7 +185,8 @@ export default function ProviderProfile() {
 
 			<div className="space-y-4">
 				<H3 className="!mb-0 flex items-center gap-2">
-					<GraduationCap size={18} /> Offered Courses ({courses.length})
+					<GraduationCap size={18} /> Offered Courses (
+					{courses.length})
 				</H3>
 
 				{coursesLoading ? (
@@ -194,7 +211,11 @@ export default function ProviderProfile() {
 								<Section
 									key={course.id}
 									title={course.title}
-									rightElement={<Badge variant="neutral">{category}</Badge>}
+									rightElement={
+										<Badge variant="neutral">
+											{category}
+										</Badge>
+									}
 									className="flex flex-col">
 									<SectionCard className="space-y-3 flex-1">
 										<p className="text-xs bp6-text-muted leading-relaxed">
@@ -205,8 +226,12 @@ export default function ProviderProfile() {
 												Skills Taught
 											</p>
 											<div className="flex flex-wrap gap-1.5">
-												{(course.skillsTaught || []).map((skill) => (
-													<Badge key={skill} variant="secondary">
+												{(
+													course.skillsTaught || []
+												).map((skill) => (
+													<Badge
+														key={skill}
+														variant="secondary">
 														{skill}
 													</Badge>
 												))}
@@ -214,21 +239,35 @@ export default function ProviderProfile() {
 										</div>
 									</SectionCard>
 									{role === "TRAINEE" && (
-										<SectionCard compact className="flex justify-end">
+										<SectionCard
+											compact
+											className="flex justify-end">
 											{isCompleted ? (
 												<Badge
 													variant="success"
-													icon={<CheckCircle2 size={12} />}>
+													icon={
+														<CheckCircle2
+															size={12}
+														/>
+													}>
 													Completed
 												</Badge>
 											) : isEnrolled ? (
-												<Badge variant="secondary">Enrolled</Badge>
+												<Badge variant="secondary">
+													Enrolled
+												</Badge>
 											) : (
 												<Button
 													variant="primary"
 													size="sm"
-													loading={enrollMutation.isPending}
-													onClick={() => enrollMutation.mutate(course.id)}>
+													loading={
+														enrollMutation.isPending
+													}
+													onClick={() =>
+														enrollMutation.mutate(
+															course.id,
+														)
+													}>
 													Enroll
 												</Button>
 											)}

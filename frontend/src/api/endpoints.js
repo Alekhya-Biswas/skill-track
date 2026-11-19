@@ -120,9 +120,12 @@ export const traineeApi = {
 		apiClient(`/trainees/${id}`, { method: "PUT", body: dto }),
 	delete: (id) => apiClient(`/trainees/${id}`, { method: "DELETE" }),
 	updateConsent: (id, consentGiven) =>
-		apiClient(`/trainees/${id}/consent?consentGiven=${Boolean(consentGiven)}`, {
-			method: "PATCH",
-		}),
+		apiClient(
+			`/trainees/${id}/consent?consentGiven=${Boolean(consentGiven)}`,
+			{
+				method: "PATCH",
+			},
+		),
 	updateEmailPreference: (id, allowEmails) =>
 		apiClient(
 			`/trainees/${id}/email-preference?allowEmails=${Boolean(allowEmails)}`,
@@ -138,7 +141,9 @@ export const traineeApi = {
 			},
 		),
 	enroll: (traineeId, courseId) =>
-		apiClient(`/trainees/${traineeId}/enroll/${courseId}`, { method: "POST" }),
+		apiClient(`/trainees/${traineeId}/enroll/${courseId}`, {
+			method: "POST",
+		}),
 	drop: (traineeId, courseId, reason) =>
 		apiClient(`/trainees/${traineeId}/drop/${courseId}`, {
 			method: "POST",
@@ -173,7 +178,10 @@ export const providerApi = {
 			body: dto,
 		}),
 	updateCourse: (courseId, dto) =>
-		apiClient(`/providers/courses/${courseId}`, { method: "PUT", body: dto }),
+		apiClient(`/providers/courses/${courseId}`, {
+			method: "PUT",
+			body: dto,
+		}),
 	removeCourse: (courseId) =>
 		apiClient(`/providers/courses/${courseId}`, { method: "DELETE" }),
 	kickTrainee: (courseId, traineeId, reason) =>
@@ -278,7 +286,9 @@ export const aiApi = {
 
 	/** @param {string} [role] @param {AbortSignal} [signal] @returns {Promise<CareerTrendsResponseDto>} */
 	getCareerTrends: (role = "Backend Developer", signal) =>
-		apiClient(`/ai/career-trends?role=${encodeURIComponent(role)}`, { signal }),
+		apiClient(`/ai/career-trends?role=${encodeURIComponent(role)}`, {
+			signal,
+		}),
 
 	/** @param {string} [courseTitle] @param {AbortSignal} [signal] @returns {Promise<CourseImprovementDto>} */
 	suggestCourseImprovements: (courseTitle = "Java Backend", signal) =>
@@ -297,7 +307,10 @@ export const aiApi = {
 
 	/** @param {string} fileName @param {AbortSignal} [signal] @returns {Promise<string>} */
 	readMarketResearchDoc: (fileName, signal) =>
-		apiClient(`/ai/market-research/documents/${encodeURIComponent(fileName)}`, {
-			signal,
-		}),
+		apiClient(
+			`/ai/market-research/documents/${encodeURIComponent(fileName)}`,
+			{
+				signal,
+			},
+		),
 };

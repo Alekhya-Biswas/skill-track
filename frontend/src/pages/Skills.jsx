@@ -94,8 +94,8 @@ export default function Skills() {
 				<div>
 					<H2 className="!mb-0">Skills Registry</H2>
 					<p className="bp6-text-muted text-xs mt-1">
-						Skills grouped by category with enrolled and verified trainee
-						counts.
+						Skills grouped by category with enrolled and verified
+						trainee counts.
 					</p>
 				</div>
 
@@ -125,70 +125,108 @@ export default function Skills() {
 				/>
 			) : (
 				<div className="space-y-6">
-					{Object.entries(categorizedSkills).map(([category, items]) => (
-						<div key={category} className="space-y-3">
-							<div className="flex items-center gap-2">
-								<Badge variant="primary" minimal={false}>
-									{category}
-								</Badge>
-								<span className="text-xs bp6-text-muted">
-									{items.length} {items.length === 1 ? "skill" : "skills"}
-								</span>
-							</div>
+					{Object.entries(categorizedSkills).map(
+						([category, items]) => (
+							<div key={category} className="space-y-3">
+								<div className="flex items-center gap-2">
+									<Badge variant="primary" minimal={false}>
+										{category}
+									</Badge>
+									<span className="text-xs bp6-text-muted">
+										{items.length}{" "}
+										{items.length === 1
+											? "skill"
+											: "skills"}
+									</span>
+								</div>
 
-							<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-								{items.map((skill) => {
-									const traineeCount =
-										skill.enrolledTraineesCount ??
-										skill.traineeNames?.length ??
-										0;
+								<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+									{items.map((skill) => {
+										const traineeCount =
+											skill.enrolledTraineesCount ??
+											skill.traineeNames?.length ??
+											0;
 
-									return (
-										<Card
-											key={skill.skillId || skill.skillName}
-											interactive={canDrillDown}
-											onClick={
-												canDrillDown ? () => setSelectedSkill(skill) : undefined
-											}
-											role={canDrillDown ? "button" : undefined}
-											tabIndex={canDrillDown ? 0 : undefined}
-											onKeyDown={
-												canDrillDown
-													? (e) => {
-															if (e.key === "Enter" || e.key === " ") {
-																e.preventDefault();
-																setSelectedSkill(skill);
+										return (
+											<Card
+												key={
+													skill.skillId ||
+													skill.skillName
+												}
+												interactive={canDrillDown}
+												onClick={
+													canDrillDown
+														? () =>
+																setSelectedSkill(
+																	skill,
+																)
+														: undefined
+												}
+												role={
+													canDrillDown
+														? "button"
+														: undefined
+												}
+												tabIndex={
+													canDrillDown ? 0 : undefined
+												}
+												onKeyDown={
+													canDrillDown
+														? (e) => {
+																if (
+																	e.key ===
+																		"Enter" ||
+																	e.key ===
+																		" "
+																) {
+																	e.preventDefault();
+																	setSelectedSkill(
+																		skill,
+																	);
+																}
 															}
-														}
-													: undefined
-											}>
-											<EntityTitle
-												icon={<Award size={16} className="bp6-text-muted" />}
-												title={skill.skillName}
-												subtitle={category}
-											/>
+														: undefined
+												}>
+												<EntityTitle
+													icon={
+														<Award
+															size={16}
+															className="bp6-text-muted"
+														/>
+													}
+													title={skill.skillName}
+													subtitle={category}
+												/>
 
-											{canDrillDown && (
-												<>
-													<Divider className="!my-3" />
+												{canDrillDown && (
+													<>
+														<Divider className="!my-3" />
 
-													<div className="flex items-center justify-between text-xs">
-														<span className="bp6-text-muted inline-flex items-center gap-1.5">
-															<Users size={13} /> {traineeCount}{" "}
-															{traineeCount === 1 ? "trainee" : "trainees"}
-														</span>
-														<span className="font-medium text-[#2d72d2] dark:text-[#8abbff]">
-															View trainees &rarr;
-														</span>
-													</div>
-												</>
-											)}
-										</Card>
-									);
-								})}
+														<div className="flex items-center justify-between text-xs">
+															<span className="bp6-text-muted inline-flex items-center gap-1.5">
+																<Users
+																	size={13}
+																/>{" "}
+																{traineeCount}{" "}
+																{traineeCount ===
+																1
+																	? "trainee"
+																	: "trainees"}
+															</span>
+															<span className="font-medium text-[#2d72d2] dark:text-[#8abbff]">
+																View trainees
+																&rarr;
+															</span>
+														</div>
+													</>
+												)}
+											</Card>
+										);
+									})}
+								</div>
 							</div>
-						</div>
-					))}
+						),
+					)}
 				</div>
 			)}
 
@@ -214,19 +252,25 @@ export default function Skills() {
 										compact
 										className="flex items-center justify-between gap-3">
 										<div className="flex items-center gap-2.5 min-w-0">
-											<Avatar fallback={t.fullName} size="sm" />
+											<Avatar
+												fallback={t.fullName}
+												size="sm"
+											/>
 											<div className="min-w-0">
 												<div className="text-xs font-medium truncate">
 													{t.fullName}
 												</div>
 												<div className="text-[11px] bp6-text-muted truncate">
-													{t.employmentStatus || "Verified skill holder"}
+													{t.employmentStatus ||
+														"Verified skill holder"}
 												</div>
 											</div>
 										</div>
 										{t.id && (
 											<Link to={`/trainees/${t.id}`}>
-												<Button variant="outline" size="sm">
+												<Button
+													variant="outline"
+													size="sm">
 													View Profile
 												</Button>
 											</Link>
@@ -236,15 +280,17 @@ export default function Skills() {
 							</CardList>
 						) : (
 							<p className="text-xs bp6-text-muted py-6 text-center">
-								No individual trainee records linked for this skill in current
-								DTO data. Count reported:{" "}
+								No individual trainee records linked for this
+								skill in current DTO data. Count reported:{" "}
 								{selectedSkill?.enrolledTraineesCount ?? 0}.
 							</p>
 						)}
 					</div>
 
 					<DialogFooter>
-						<DialogClose render={<Button variant="outline">Close</Button>} />
+						<DialogClose
+							render={<Button variant="outline">Close</Button>}
+						/>
 					</DialogFooter>
 				</DialogContent>
 			</Dialog>

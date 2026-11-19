@@ -18,15 +18,26 @@ export function RequireRole({ roles = [], children }) {
 			<div className="max-w-md mx-auto my-14">
 				<Card>
 					<NonIdealState
-						icon={<Icon icon="shield" size={36} intent={Intent.DANGER} />}
+						icon={
+							<Icon
+								icon="shield"
+								size={36}
+								intent={Intent.DANGER}
+							/>
+						}
 						iconMuted={false}
 						title="Access Restricted"
 						description={
 							<span>
 								This route is limited to{" "}
-								<strong className="font-semibold">{roles.join(", ")}</strong>.
-								Your active role is{" "}
-								<strong className="font-semibold">{role || "None"}</strong>.
+								<strong className="font-semibold">
+									{roles.join(", ")}
+								</strong>
+								. Your active role is{" "}
+								<strong className="font-semibold">
+									{role || "None"}
+								</strong>
+								.
 							</span>
 						}
 						action={

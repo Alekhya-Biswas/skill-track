@@ -122,12 +122,17 @@ export function DialogContent({
 			<>
 				<BpDialogBody>
 					{parts.description && (
-						<p className="bp6-text-muted text-xs mb-4">{parts.description}</p>
+						<p className="bp6-text-muted text-xs mb-4">
+							{parts.description}
+						</p>
 					)}
 					{formBody}
 				</BpDialogBody>
 				{formFooter && (
-					<BpDialogFooter className={formFooterClass} actions={formFooter} />
+					<BpDialogFooter
+						className={formFooterClass}
+						actions={formFooter}
+					/>
 				)}
 			</>,
 		);
@@ -136,7 +141,9 @@ export function DialogContent({
 			<>
 				<BpDialogBody>
 					{parts.description && (
-						<p className="bp6-text-muted text-xs mb-4">{parts.description}</p>
+						<p className="bp6-text-muted text-xs mb-4">
+							{parts.description}
+						</p>
 					)}
 					{parts.bodyChildren}
 				</BpDialogBody>

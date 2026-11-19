@@ -1,11 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-	useMutation,
-	useQuery,
-	useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import {
@@ -234,14 +230,17 @@ export default function CoursesAndProviders() {
 				course.category,
 			);
 			const isOwnCourse =
-				isProvider && Number(course.providerId) === Number(myProviderId);
+				isProvider &&
+				Number(course.providerId) === Number(myProviderId);
 
 			const matchSearch =
 				!q ||
 				course.title.toLowerCase().includes(q) ||
 				course.description.toLowerCase().includes(q) ||
 				courseCategory.toLowerCase().includes(q) ||
-				(course.skillsTaught || []).some((s) => s.toLowerCase().includes(q)) ||
+				(course.skillsTaught || []).some((s) =>
+					s.toLowerCase().includes(q),
+				) ||
 				((!isProvider || isOwnCourse) &&
 					course.providerName?.toLowerCase().includes(q));
 
@@ -252,7 +251,8 @@ export default function CoursesAndProviders() {
 				);
 
 			const matchCategory =
-				selectedCategory === "ALL" || courseCategory === selectedCategory;
+				selectedCategory === "ALL" ||
+				courseCategory === selectedCategory;
 
 			const matchProvider = isAdmin
 				? selectedProvider === "ALL" ||
@@ -270,7 +270,9 @@ export default function CoursesAndProviders() {
 				course.category,
 			);
 			const popularity =
-				(course.enrolledCount ?? 0) || coursePopularityMap[course.title] || 0;
+				(course.enrolledCount ?? 0) ||
+				coursePopularityMap[course.title] ||
+				0;
 			const missingSkillsCount = (course.skillsTaught || []).filter(
 				(s) => !currentTraineeSkills.has(s),
 			).length;
@@ -289,7 +291,9 @@ export default function CoursesAndProviders() {
 				missingSkillsCount,
 				recommendationScore,
 				isRecommended:
-					role === "TRAINEE" && !alreadyTaken && missingSkillsCount > 0,
+					role === "TRAINEE" &&
+					!alreadyTaken &&
+					missingSkillsCount > 0,
 			};
 		});
 
@@ -384,7 +388,8 @@ export default function CoursesAndProviders() {
 			.split(",")
 			.map((s) => s.trim())
 			.filter(Boolean);
-		const category = data.category?.trim() || deriveCourseCategory(skillsArray);
+		const category =
+			data.category?.trim() || deriveCourseCategory(skillsArray);
 
 		try {
 			if (editingCourse) {
@@ -470,7 +475,10 @@ export default function CoursesAndProviders() {
 		register: registerProvider,
 		handleSubmit: handleProviderSubmit,
 		reset: resetProviderForm,
-		formState: { errors: providerErrors, isSubmitting: isProviderSubmitting },
+		formState: {
+			errors: providerErrors,
+			isSubmitting: isProviderSubmitting,
+		},
 	} = useForm({
 		resolver: zodResolver(providerSchema),
 	});
@@ -574,7 +582,9 @@ export default function CoursesAndProviders() {
 			<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
 				<div>
 					<H2 className="!mb-0">
-						{isAdmin ? "Courses & Training Providers" : "Courses Catalog"}
+						{isAdmin
+							? "Courses & Training Providers"
+							: "Courses Catalog"}
 					</H2>
 					<p className="bp6-text-muted text-xs mt-1">
 						{isProvider
@@ -589,7 +599,9 @@ export default function CoursesAndProviders() {
 					{role === "COURSE_PROVIDER" && (
 						<>
 							<Link to={`/providers/${myProviderId}`}>
-								<Button variant="outline" icon={<Building2 size={14} />}>
+								<Button
+									variant="outline"
+									icon={<Building2 size={14} />}>
 									My Profile
 								</Button>
 							</Link>
@@ -616,13 +628,15 @@ export default function CoursesAndProviders() {
 				<TabsList>
 					<TabsTab value="courses">
 						<span className="inline-flex items-center gap-1.5">
-							<GraduationCap size={14} /> Courses ({courses.length})
+							<GraduationCap size={14} /> Courses (
+							{courses.length})
 						</span>
 					</TabsTab>
 					{isAdmin && (
 						<TabsTab value="providers">
 							<span className="inline-flex items-center gap-1.5">
-								<Building2 size={14} /> Providers ({providers.length})
+								<Building2 size={14} /> Providers (
+								{providers.length})
 							</span>
 						</TabsTab>
 					)}
@@ -634,32 +648,46 @@ export default function CoursesAndProviders() {
 							<Input
 								leftIcon="search"
 								value={search}
-								onChange={(e) => updateParams({ q: e.target.value })}
+								onChange={(e) =>
+									updateParams({ q: e.target.value })
+								}
 								placeholder="Search courses..."
 							/>
 
 							<Combobox
 								items={allUniqueSkills}
 								value={selectedSkill}
-								onChange={(val) => updateParams({ skill: val || "" })}
+								onChange={(val) =>
+									updateParams({ skill: val || "" })
+								}
 								placeholder="Filter by skill (Java, Cloud, Git)..."
 							/>
 
 							<Select
 								value={selectedCategory}
-								onValueChange={(val) => updateParams({ category: val })}
+								onValueChange={(val) =>
+									updateParams({ category: val })
+								}
 								options={[
 									{ value: "ALL", label: "All Categories" },
-									...allCategories.map((cat) => ({ value: cat, label: cat })),
+									...allCategories.map((cat) => ({
+										value: cat,
+										label: cat,
+									})),
 								]}
 							/>
 
 							{isAdmin ? (
 								<Select
 									value={selectedProvider}
-									onValueChange={(val) => updateParams({ provider: val })}
+									onValueChange={(val) =>
+										updateParams({ provider: val })
+									}
 									options={[
-										{ value: "ALL", label: "All Providers" },
+										{
+											value: "ALL",
+											label: "All Providers",
+										},
 										...providers.map((p) => ({
 											value: String(p.id),
 											label: p.name,
@@ -669,10 +697,18 @@ export default function CoursesAndProviders() {
 							) : isProvider ? (
 								<Select
 									value={courseScope}
-									onValueChange={(val) => updateParams({ scope: val })}
+									onValueChange={(val) =>
+										updateParams({ scope: val })
+									}
 									options={[
-										{ value: "all", label: "All Catalog Courses" },
-										{ value: "mine", label: "My Published Courses" },
+										{
+											value: "all",
+											label: "All Catalog Courses",
+										},
+										{
+											value: "mine",
+											label: "My Published Courses",
+										},
 									]}
 								/>
 							) : (
@@ -681,26 +717,40 @@ export default function CoursesAndProviders() {
 
 							<Select
 								value={sortBy}
-								onValueChange={(val) => updateParams({ sort: val })}
+								onValueChange={(val) =>
+									updateParams({ sort: val })
+								}
 								options={[
 									...(role === "TRAINEE"
 										? [
-												{ value: "recommended", label: "Recommended for You" },
+												{
+													value: "recommended",
+													label: "Recommended for You",
+												},
 												{
 													value: "recommended-only",
 													label: "Only Recommended Courses",
 												},
 											]
 										: []),
-									{ value: "default", label: "Sort: Default Order" },
-									{ value: "popularity", label: "Popularity (Most Enrolled)" },
+									{
+										value: "default",
+										label: "Sort: Default Order",
+									},
+									{
+										value: "popularity",
+										label: "Popularity (Most Enrolled)",
+									},
 								]}
 							/>
 						</div>
 					</Card>
 
 					{coursesLoading ? (
-						<LoadingState label="Loading courses catalog..." rows={4} />
+						<LoadingState
+							label="Loading courses catalog..."
+							rows={4}
+						/>
 					) : coursesError ? (
 						<ErrorState
 							title="Failed to load courses"
@@ -716,15 +766,18 @@ export default function CoursesAndProviders() {
 					) : (
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 							{scoredCourses.map((course) => {
-								const isEnrolled = currentTraineeCourses.enrolled.has(
-									course.title,
-								);
-								const isCompleted = currentTraineeCourses.completed.has(
-									course.title,
-								);
+								const isEnrolled =
+									currentTraineeCourses.enrolled.has(
+										course.title,
+									);
+								const isCompleted =
+									currentTraineeCourses.completed.has(
+										course.title,
+									);
 								const isOwner =
 									isProvider &&
-									Number(course.providerId) === Number(myProviderId);
+									Number(course.providerId) ===
+										Number(myProviderId);
 
 								return (
 									<Section
@@ -735,25 +788,34 @@ export default function CoursesAndProviders() {
 												<Link
 													to={`/providers/${course.providerId}`}
 													className="inline-flex items-center gap-1 hover:underline">
-													<Building2 size={12} /> {course.providerName}
+													<Building2 size={12} />{" "}
+													{course.providerName}
 												</Link>
 											) : isOwner ? (
 												<Link
 													to={`/providers/${myProviderId}`}
 													className="inline-flex items-center gap-1 hover:underline">
-													<Building2 size={12} /> {course.providerName} (You)
+													<Building2 size={12} />{" "}
+													{course.providerName} (You)
 												</Link>
 											) : (
 												<span className="inline-flex items-center gap-1 bp6-text-muted">
-													<Building2 size={12} /> Accredited Catalog Course
+													<Building2 size={12} />{" "}
+													Accredited Catalog Course
 												</span>
 											)
 										}
 										rightElement={
 											<div className="flex items-center gap-1.5">
-												<Badge variant="neutral">{course.category}</Badge>
+												<Badge variant="neutral">
+													{course.category}
+												</Badge>
 												{course.popularity > 0 && (
-													<Badge variant="outline" icon={<Users size={11} />}>
+													<Badge
+														variant="outline"
+														icon={
+															<Users size={11} />
+														}>
 														{course.popularity}
 													</Badge>
 												)}
@@ -765,7 +827,11 @@ export default function CoursesAndProviders() {
 												<div>
 													<Badge
 														variant="primary"
-														icon={<Sparkles size={11} />}>
+														icon={
+															<Sparkles
+																size={11}
+															/>
+														}>
 														Suggested for you
 													</Badge>
 												</div>
@@ -780,8 +846,13 @@ export default function CoursesAndProviders() {
 													Skills Taught
 												</p>
 												<div className="flex flex-wrap gap-1.5">
-													{(course.skillsTaught || []).map((skill) => (
-														<Badge key={skill} variant="secondary">
+													{(
+														course.skillsTaught ||
+														[]
+													).map((skill) => (
+														<Badge
+															key={skill}
+															variant="secondary">
 															{skill}
 														</Badge>
 													))}
@@ -793,25 +864,37 @@ export default function CoursesAndProviders() {
 											compact
 											className="flex items-center justify-between gap-2 flex-wrap">
 											{!isProvider ? (
-												<Link to={`/providers/${course.providerId}`}>
+												<Link
+													to={`/providers/${course.providerId}`}>
 													<Button
 														variant="ghost"
 														size="sm"
-														endIcon={<ExternalLink size={12} />}>
+														endIcon={
+															<ExternalLink
+																size={12}
+															/>
+														}>
 														Provider
 													</Button>
 												</Link>
 											) : isOwner ? (
-												<Link to={`/providers/${myProviderId}`}>
+												<Link
+													to={`/providers/${myProviderId}`}>
 													<Button
 														variant="ghost"
 														size="sm"
-														endIcon={<ExternalLink size={12} />}>
+														endIcon={
+															<ExternalLink
+																size={12}
+															/>
+														}>
 														My Profile
 													</Button>
 												</Link>
 											) : (
-												<Badge variant="outline">Catalog Course</Badge>
+												<Badge variant="outline">
+													Catalog Course
+												</Badge>
 											)}
 
 											{role === "TRAINEE" && (
@@ -819,17 +902,29 @@ export default function CoursesAndProviders() {
 													{isCompleted ? (
 														<Badge
 															variant="success"
-															icon={<CheckCircle2 size={12} />}>
+															icon={
+																<CheckCircle2
+																	size={12}
+																/>
+															}>
 															Completed
 														</Badge>
 													) : isEnrolled ? (
-														<Badge variant="secondary">Enrolled</Badge>
+														<Badge variant="secondary">
+															Enrolled
+														</Badge>
 													) : (
 														<Button
 															variant="primary"
 															size="sm"
-															loading={enrollMutation.isPending}
-															onClick={() => enrollMutation.mutate(course.id)}>
+															loading={
+																enrollMutation.isPending
+															}
+															onClick={() =>
+																enrollMutation.mutate(
+																	course.id,
+																)
+															}>
 															Enroll
 														</Button>
 													)}
@@ -841,23 +936,41 @@ export default function CoursesAndProviders() {
 													<Button
 														variant="outline"
 														size="sm"
-														icon={<Pencil size={12} />}
-														onClick={() => openEditCourse(course)}
+														icon={
+															<Pencil size={12} />
+														}
+														onClick={() =>
+															openEditCourse(
+																course,
+															)
+														}
 														aria-label={`Edit ${course.title}`}
 													/>
 													<Button
 														variant="outline"
 														size="sm"
-														icon={<UserX size={12} />}
-														onClick={() => setKickModalTarget(course)}>
+														icon={
+															<UserX size={12} />
+														}
+														onClick={() =>
+															setKickModalTarget(
+																course,
+															)
+														}>
 														Kick
 													</Button>
 													<Button
 														variant="ghost"
 														size="sm"
 														intent={Intent.DANGER}
-														icon={<Trash2 size={13} />}
-														onClick={() => setDeleteCourseTarget(course)}
+														icon={
+															<Trash2 size={13} />
+														}
+														onClick={() =>
+															setDeleteCourseTarget(
+																course,
+															)
+														}
 														aria-label={`Delete ${course.title}`}
 													/>
 												</ButtonGroup>
@@ -872,21 +985,30 @@ export default function CoursesAndProviders() {
 
 				{isAdmin && (
 					<TabsPanel value="providers" className="space-y-5">
-						{!providersLoading && !providersError && providers.length > 0 && (
-							<Card compact>
-								<div className="max-w-md">
-									<Input
-										leftIcon="search"
-										value={providerSearch}
-										onChange={(e) => updateParams({ pSearch: e.target.value })}
-										placeholder="Search providers by name, email, or description..."
-									/>
-								</div>
-							</Card>
-						)}
+						{!providersLoading &&
+							!providersError &&
+							providers.length > 0 && (
+								<Card compact>
+									<div className="max-w-md">
+										<Input
+											leftIcon="search"
+											value={providerSearch}
+											onChange={(e) =>
+												updateParams({
+													pSearch: e.target.value,
+												})
+											}
+											placeholder="Search providers by name, email, or description..."
+										/>
+									</div>
+								</Card>
+							)}
 
 						{providersLoading ? (
-							<LoadingState label="Loading training providers..." rows={3} />
+							<LoadingState
+								label="Loading training providers..."
+								rows={3}
+							/>
 						) : providersError ? (
 							<ErrorState
 								title="Failed to load providers"
@@ -908,7 +1030,8 @@ export default function CoursesAndProviders() {
 						) : (
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
 								{filteredProviders.map((provider) => {
-									const providerCourses = coursesByProvider[provider.id] || [];
+									const providerCourses =
+										coursesByProvider[provider.id] || [];
 									return (
 										<Section
 											key={provider.id}
@@ -923,11 +1046,16 @@ export default function CoursesAndProviders() {
 												{provider.website && (
 													<div>
 														<a
-															href={provider.website}
+															href={
+																provider.website
+															}
 															target="_blank"
 															rel="noreferrer"
 															className="text-xs font-medium underline inline-flex items-center gap-1">
-															Visit Website <ExternalLink size={12} />
+															Visit Website{" "}
+															<ExternalLink
+																size={12}
+															/>
 														</a>
 													</div>
 												)}
@@ -938,36 +1066,60 @@ export default function CoursesAndProviders() {
 													<AccordionItem value="courses">
 														<AccordionHeader>
 															<AccordionTrigger>
-																Courses Offered ({providerCourses.length})
+																Courses Offered
+																(
+																{
+																	providerCourses.length
+																}
+																)
 															</AccordionTrigger>
 														</AccordionHeader>
 														<AccordionPanel className="text-xs">
-															{providerCourses.length > 0 ? (
+															{providerCourses.length >
+															0 ? (
 																<ul className="space-y-1.5">
-																	{providerCourses.map((course) => (
-																		<li
-																			key={course.id}
-																			className="flex items-center justify-between gap-2 text-xs">
-																			<span className="truncate font-medium">
-																				{course.title}
-																			</span>
-																			{(course.skillsTaught?.length || 0) >
-																				0 && (
-																				<Badge
-																					variant="outline"
-																					className="shrink-0">
-																					{course.skillsTaught[0]}
-																					{course.skillsTaught.length > 1
-																						? ` +${course.skillsTaught.length - 1}`
-																						: ""}
-																				</Badge>
-																			)}
-																		</li>
-																	))}
+																	{providerCourses.map(
+																		(
+																			course,
+																		) => (
+																			<li
+																				key={
+																					course.id
+																				}
+																				className="flex items-center justify-between gap-2 text-xs">
+																				<span className="truncate font-medium">
+																					{
+																						course.title
+																					}
+																				</span>
+																				{(course
+																					.skillsTaught
+																					?.length ||
+																					0) >
+																					0 && (
+																					<Badge
+																						variant="outline"
+																						className="shrink-0">
+																						{
+																							course
+																								.skillsTaught[0]
+																						}
+																						{course
+																							.skillsTaught
+																							.length >
+																						1
+																							? ` +${course.skillsTaught.length - 1}`
+																							: ""}
+																					</Badge>
+																				)}
+																			</li>
+																		),
+																	)}
 																</ul>
 															) : (
 																<p className="text-xs bp6-text-muted">
-																	No courses listed yet.
+																	No courses
+																	listed yet.
 																</p>
 															)}
 														</AccordionPanel>
@@ -978,8 +1130,11 @@ export default function CoursesAndProviders() {
 											<SectionCard
 												compact
 												className="flex items-center justify-between gap-2">
-												<Link to={`/providers/${provider.id}`}>
-													<Button variant="outline" size="sm">
+												<Link
+													to={`/providers/${provider.id}`}>
+													<Button
+														variant="outline"
+														size="sm">
 														View Profile
 													</Button>
 												</Link>
@@ -989,16 +1144,34 @@ export default function CoursesAndProviders() {
 														<Button
 															variant="outline"
 															size="sm"
-															icon={<Pencil size={12} />}
-															onClick={() => openEditProvider(provider)}>
+															icon={
+																<Pencil
+																	size={12}
+																/>
+															}
+															onClick={() =>
+																openEditProvider(
+																	provider,
+																)
+															}>
 															Edit
 														</Button>
 														<Button
 															variant="ghost"
 															size="sm"
-															intent={Intent.DANGER}
-															icon={<Trash2 size={12} />}
-															onClick={() => setDeleteProviderTarget(provider)}>
+															intent={
+																Intent.DANGER
+															}
+															icon={
+																<Trash2
+																	size={12}
+																/>
+															}
+															onClick={() =>
+																setDeleteProviderTarget(
+																	provider,
+																)
+															}>
 															Remove
 														</Button>
 													</ButtonGroup>
@@ -1018,7 +1191,9 @@ export default function CoursesAndProviders() {
 				<DialogContent maxWidth="max-w-md">
 					<DialogHeader>
 						<DialogTitle>
-							{editingCourse ? "Edit Course" : "Publish New Course"}
+							{editingCourse
+								? "Edit Course"
+								: "Publish New Course"}
 						</DialogTitle>
 						<DialogDescription>
 							{editingCourse
@@ -1095,7 +1270,9 @@ export default function CoursesAndProviders() {
 								variant="primary"
 								size="sm"
 								loading={isCourseSubmitting}>
-								{editingCourse ? "Save Changes" : "Publish Course"}
+								{editingCourse
+									? "Save Changes"
+									: "Publish Course"}
 							</Button>
 						</DialogFooter>
 					</form>
@@ -1113,7 +1290,8 @@ export default function CoursesAndProviders() {
 						<AlertDialogTitle>Delete Course?</AlertDialogTitle>
 						<AlertDialogDescription>
 							This permanently removes{" "}
-							<strong>{deleteCourseTarget?.title}</strong> from the catalog.
+							<strong>{deleteCourseTarget?.title}</strong> from
+							the catalog.
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>
@@ -1130,7 +1308,9 @@ export default function CoursesAndProviders() {
 							loading={deleteCourseMutation.isPending}
 							onClick={() =>
 								deleteCourseTarget &&
-								deleteCourseMutation.mutate(deleteCourseTarget.id)
+								deleteCourseMutation.mutate(
+									deleteCourseTarget.id,
+								)
 							}>
 							Delete Course
 						</Button>
@@ -1146,10 +1326,14 @@ export default function CoursesAndProviders() {
 				}}>
 				<AlertDialogContent variant="danger">
 					<AlertDialogHeader>
-						<AlertDialogTitle>Remove Course Provider?</AlertDialogTitle>
+						<AlertDialogTitle>
+							Remove Course Provider?
+						</AlertDialogTitle>
 						<AlertDialogDescription>
-							This removes <strong>{deleteProviderTarget?.name}</strong> and its
-							courses from SkillTrack. This action cannot be undone.
+							This removes{" "}
+							<strong>{deleteProviderTarget?.name}</strong> and
+							its courses from SkillTrack. This action cannot be
+							undone.
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 					<AlertDialogFooter>
@@ -1166,7 +1350,9 @@ export default function CoursesAndProviders() {
 							loading={removeProviderMutation.isPending}
 							onClick={() =>
 								deleteProviderTarget &&
-								removeProviderMutation.mutate(deleteProviderTarget.id)
+								removeProviderMutation.mutate(
+									deleteProviderTarget.id,
+								)
 							}>
 							Remove Provider
 						</Button>
@@ -1175,11 +1361,15 @@ export default function CoursesAndProviders() {
 			</AlertDialog>
 
 			{/* Add / Edit Provider Dialog */}
-			<Dialog open={providerModalOpen} onOpenChange={setProviderModalOpen}>
+			<Dialog
+				open={providerModalOpen}
+				onOpenChange={setProviderModalOpen}>
 				<DialogContent maxWidth="max-w-md">
 					<DialogHeader>
 						<DialogTitle>
-							{editingProvider ? "Edit Course Provider" : "Add Course Provider"}
+							{editingProvider
+								? "Edit Course Provider"
+								: "Add Course Provider"}
 						</DialogTitle>
 						<DialogDescription>
 							{editingProvider
@@ -1252,7 +1442,9 @@ export default function CoursesAndProviders() {
 								variant="primary"
 								size="sm"
 								loading={isProviderSubmitting}>
-								{editingProvider ? "Save Changes" : "Add Provider"}
+								{editingProvider
+									? "Save Changes"
+									: "Add Provider"}
 							</Button>
 						</DialogFooter>
 					</form>
@@ -1271,10 +1463,13 @@ export default function CoursesAndProviders() {
 				}}>
 				<AlertDialogContent variant="warning">
 					<AlertDialogHeader>
-						<AlertDialogTitle>Kick Trainee from Course?</AlertDialogTitle>
+						<AlertDialogTitle>
+							Kick Trainee from Course?
+						</AlertDialogTitle>
 						<AlertDialogDescription>
-							Removing a trainee from <strong>{kickModalTarget?.title}</strong>{" "}
-							requires a written reason.
+							Removing a trainee from{" "}
+							<strong>{kickModalTarget?.title}</strong> requires a
+							written reason.
 						</AlertDialogDescription>
 					</AlertDialogHeader>
 
@@ -1286,7 +1481,9 @@ export default function CoursesAndProviders() {
 								placeholder="Choose enrolled trainee..."
 								options={trainees
 									.filter((t) =>
-										t.enrolledCourses?.includes(kickModalTarget?.title),
+										t.enrolledCourses?.includes(
+											kickModalTarget?.title,
+										),
 									)
 									.map((t) => ({
 										value: String(t.id),
@@ -1298,7 +1495,10 @@ export default function CoursesAndProviders() {
 							/>
 						</Field>
 
-						<Field label="Reason for Removal" required id="kick-reason">
+						<Field
+							label="Reason for Removal"
+							required
+							id="kick-reason">
 							<Input
 								id="kick-reason"
 								value={kickReason}

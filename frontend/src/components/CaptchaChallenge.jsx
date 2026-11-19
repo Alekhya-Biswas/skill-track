@@ -45,7 +45,13 @@ export function CaptchaChallenge({ code, width = 210, height = 44 }) {
 		for (let i = 0; i < 32; i += 1) {
 			ctx.fillStyle = lineColors[i % lineColors.length];
 			ctx.beginPath();
-			ctx.arc(rng() * width, rng() * height, 0.9 + rng() * 0.9, 0, Math.PI * 2);
+			ctx.arc(
+				rng() * width,
+				rng() * height,
+				0.9 + rng() * 0.9,
+				0,
+				Math.PI * 2,
+			);
 			ctx.fill();
 		}
 

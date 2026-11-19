@@ -69,7 +69,9 @@ export function EmploymentDetailsSection({
 				<div>
 					<p className="text-xs bp6-text-muted">Employment Status</p>
 					<div className="mt-1">
-						<Badge variant={statusMeta.variant}>{statusMeta.label}</Badge>
+						<Badge variant={statusMeta.variant}>
+							{statusMeta.label}
+						</Badge>
 					</div>
 				</div>
 				<div>
@@ -87,7 +89,9 @@ export function EmploymentDetailsSection({
 				{!hideSalary && (
 					<>
 						<div>
-							<p className="text-xs bp6-text-muted">Current Salary</p>
+							<p className="text-xs bp6-text-muted">
+								Current Salary
+							</p>
 							<p className="text-sm font-semibold mt-1 tabular-nums">
 								{profile?.currentSalary
 									? `₹${profile.currentSalary.toLocaleString("en-IN")}`
@@ -95,16 +99,21 @@ export function EmploymentDetailsSection({
 							</p>
 						</div>
 						<div className="sm:col-span-2">
-							<p className="text-xs bp6-text-muted">Salary Progression</p>
+							<p className="text-xs bp6-text-muted">
+								Salary Progression
+							</p>
 							<p className="text-sm font-medium mt-1">
 								{profile?.salaryProgression || "Not recorded"}
 							</p>
 						</div>
 					</>
 				)}
-				{(profile?.unemployedReason || (isUnemployed && emptyReasonHint)) && (
+				{(profile?.unemployedReason ||
+					(isUnemployed && emptyReasonHint)) && (
 					<div className="sm:col-span-3">
-						<Callout variant="warning" title="Stated Reason / Context">
+						<Callout
+							variant="warning"
+							title="Stated Reason / Context">
 							{profile?.unemployedReason || emptyReasonHint}
 						</Callout>
 					</div>
@@ -169,13 +178,17 @@ export function EmploymentFormFields({
 					</Field>
 					{onSelectPresetReason && (
 						<div className="flex flex-wrap items-center gap-1.5">
-							<span className="text-[11px] bp6-text-muted">Quick fill:</span>
+							<span className="text-[11px] bp6-text-muted">
+								Quick fill:
+							</span>
 							{UNEMPLOYED_REASON_PRESETS.map((preset) => (
 								<Button
 									key={preset.label}
 									variant="outline"
 									size="sm"
-									onClick={() => onSelectPresetReason(preset.value)}>
+									onClick={() =>
+										onSelectPresetReason(preset.value)
+									}>
 									{preset.label}
 								</Button>
 							))}
@@ -207,10 +220,12 @@ export function ClearEmploymentAlertDialog({
 		<AlertDialog open={open} onOpenChange={onOpenChange}>
 			<AlertDialogContent variant="warning">
 				<AlertDialogHeader>
-					<AlertDialogTitle>Clear Employment Information?</AlertDialogTitle>
+					<AlertDialogTitle>
+						Clear Employment Information?
+					</AlertDialogTitle>
 					<AlertDialogDescription>
-						Clears company, role, salary, and progression details on this
-						profile.
+						Clears company, role, salary, and progression details on
+						this profile.
 					</AlertDialogDescription>
 				</AlertDialogHeader>
 

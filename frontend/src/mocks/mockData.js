@@ -106,7 +106,9 @@ export const mockTrainees = [
 		enrolledCourses: [],
 		completedCourses: ["Modern Web Development with React"],
 		followUpResponded: true,
-		followUpNotes: ["Requested follow-up pause until graduation in late 2026."],
+		followUpNotes: [
+			"Requested follow-up pause until graduation in late 2026.",
+		],
 	},
 	{
 		id: 5,
@@ -122,7 +124,8 @@ export const mockTrainees = [
 		currentSalary: 420000,
 		salaryProgression: "3.2LPA -> 4.2LPA (Part-Time)",
 		unemployedReason: "",
-		projectsSummary: "PostgreSQL query optimization and partition management",
+		projectsSummary:
+			"PostgreSQL query optimization and partition management",
 		projectRepoUrl: "https://github.com/vikram/db-performance",
 		skills: ["PostgreSQL", "SQL Tuning"],
 		certifications: ["PostgreSQL Professional"],
@@ -227,7 +230,13 @@ export const mockCourses = [
 		category: "Backend",
 		providerId: 1,
 		providerName: "Apex Skill Academy",
-		skillsTaught: ["Java", "Spring Boot", "PostgreSQL", "REST APIs", "Docker"],
+		skillsTaught: [
+			"Java",
+			"Spring Boot",
+			"PostgreSQL",
+			"REST APIs",
+			"Docker",
+		],
 	},
 	{
 		id: 3,

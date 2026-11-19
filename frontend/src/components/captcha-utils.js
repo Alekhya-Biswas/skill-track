@@ -11,7 +11,9 @@ export function generateCaptchaCode(length = 6) {
 	} else {
 		for (let i = 0; i < length; i += 1) {
 			chars.push(
-				CAPTCHA_ALPHABET[Math.floor(Math.random() * CAPTCHA_ALPHABET.length)],
+				CAPTCHA_ALPHABET[
+					Math.floor(Math.random() * CAPTCHA_ALPHABET.length)
+				],
 			);
 		}
 	}

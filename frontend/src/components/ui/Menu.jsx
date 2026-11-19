@@ -58,7 +58,8 @@ export function Menu({ children }) {
 							...targetProps,
 							ref,
 							children:
-								trigger.props.children ?? trigger.props.render.props?.children,
+								trigger.props.children ??
+								trigger.props.render.props?.children,
 						})
 					) : (
 						<button
@@ -71,7 +72,10 @@ export function Menu({ children }) {
 					);
 
 				if (!isValidElement(rendered)) return rendered;
-				const mergedClassName = [targetClassName, rendered.props?.className]
+				const mergedClassName = [
+					targetClassName,
+					rendered.props?.className,
+				]
 					.filter(Boolean)
 					.join(" ");
 				return cloneElement(rendered, { className: mergedClassName });

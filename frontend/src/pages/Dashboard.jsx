@@ -4,15 +4,15 @@ import { ProviderDashboardBoard } from "../components/dashboard/ProviderDashboar
 import { TraineeDashboardBoard } from "../components/dashboard/TraineeDashboardBoard";
 
 export default function Dashboard() {
-  const { role } = useAuth();
+	const { role } = useAuth();
 
-  if (role === "ADMIN") {
-    return <AdminDashboardBoard />;
-  }
+	if (role === "ADMIN") {
+		return <AdminDashboardBoard />;
+	}
 
-  if (role === "COURSE_PROVIDER") {
-    return <ProviderDashboardBoard />;
-  }
+	if (role === "COURSE_PROVIDER") {
+		return <ProviderDashboardBoard />;
+	}
 
-  return <TraineeDashboardBoard />;
+	return <TraineeDashboardBoard />;
 }

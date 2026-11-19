@@ -97,17 +97,26 @@ export function ProviderDashboardBoard() {
 		});
 
 		const totalActive = perCourse.reduce((sum, c) => sum + c.enrolled, 0);
-		const totalCompleted = perCourse.reduce((sum, c) => sum + c.completed, 0);
+		const totalCompleted = perCourse.reduce(
+			(sum, c) => sum + c.completed,
+			0,
+		);
 
 		const cohortTrainees = trainees.filter(
 			(t) =>
-				(t.enrolledCourses || []).some((title) => courseTitles.has(title)) ||
-				(t.completedCourses || []).some((title) => courseTitles.has(title)),
+				(t.enrolledCourses || []).some((title) =>
+					courseTitles.has(title),
+				) ||
+				(t.completedCourses || []).some((title) =>
+					courseTitles.has(title),
+				),
 		);
 
 		const totalSeats = totalActive + totalCompleted;
 		const completionRate =
-			totalSeats > 0 ? Math.round((totalCompleted / totalSeats) * 100) : 0;
+			totalSeats > 0
+				? Math.round((totalCompleted / totalSeats) * 100)
+				: 0;
 
 		const statusCounts = {
 			FULL_TIME: 0,
@@ -168,8 +177,8 @@ export function ProviderDashboardBoard() {
 				<div>
 					<H2 className="!mb-0">Course Provider Dashboard</H2>
 					<p className="bp6-text-muted text-xs mt-1">
-						{provider?.name || user?.name} — course activity, trainee
-						completions, and cohort outcomes.
+						{provider?.name || user?.name} — course activity,
+						trainee completions, and cohort outcomes.
 					</p>
 				</div>
 
@@ -189,7 +198,9 @@ export function ProviderDashboardBoard() {
 					<Button
 						variant="primary"
 						icon={<GraduationCap size={14} />}
-						onClick={() => navigate(`/courses?provider=${providerId}`)}>
+						onClick={() =>
+							navigate(`/courses?provider=${providerId}`)
+						}>
 						Manage My Courses
 					</Button>
 				</ButtonGroup>
@@ -200,18 +211,27 @@ export function ProviderDashboardBoard() {
 				<Link to={`/courses?provider=${providerId}`} className="block">
 					<Card interactive className="h-full">
 						<EntityTitle
-							icon={<GraduationCap size={18} className="bp6-text-muted" />}
+							icon={
+								<GraduationCap
+									size={18}
+									className="bp6-text-muted"
+								/>
+							}
 							title="Published Courses"
 							subtitle="Open catalog →"
 						/>
-						<H2 className="!mb-0 !mt-3 tabular-nums">{myCourses.length}</H2>
+						<H2 className="!mb-0 !mt-3 tabular-nums">
+							{myCourses.length}
+						</H2>
 					</Card>
 				</Link>
 
 				<Link to="/trainees" className="block">
 					<Card interactive className="h-full">
 						<EntityTitle
-							icon={<Users size={18} className="bp6-text-muted" />}
+							icon={
+								<Users size={18} className="bp6-text-muted" />
+							}
 							title="Cohort Trainees"
 							subtitle={`${analytics.totalActive} active seats →`}
 						/>
@@ -223,20 +243,32 @@ export function ProviderDashboardBoard() {
 
 				<Card className="h-full">
 					<EntityTitle
-						icon={<CheckCircle2 size={18} className="bp6-text-muted" />}
+						icon={
+							<CheckCircle2
+								size={18}
+								className="bp6-text-muted"
+							/>
+						}
 						title="Completion Rate"
 						subtitle={`${analytics.totalCompleted} completed outcomes`}
 					/>
 					<div className="mt-3 space-y-2">
-						<H2 className="!mb-0 tabular-nums">{analytics.completionRate}%</H2>
-						<Progress value={analytics.completionRate} variant="success" />
+						<H2 className="!mb-0 tabular-nums">
+							{analytics.completionRate}%
+						</H2>
+						<Progress
+							value={analytics.completionRate}
+							variant="success"
+						/>
 					</div>
 				</Card>
 
 				<Link to="/skills" className="block">
 					<Card interactive className="h-full">
 						<EntityTitle
-							icon={<Award size={18} className="bp6-text-muted" />}
+							icon={
+								<Award size={18} className="bp6-text-muted" />
+							}
 							title="Skills Covered"
 							subtitle="Inspect skills →"
 						/>
@@ -264,22 +296,35 @@ export function ProviderDashboardBoard() {
 								<ResponsiveContainer width="100%" height="100%">
 									<BarChart
 										data={analytics.perCourse}
-										margin={{ top: 10, right: 12, left: -16, bottom: 0 }}>
+										margin={{
+											top: 10,
+											right: 12,
+											left: -16,
+											bottom: 0,
+										}}>
 										<XAxis
 											dataKey="shortTitle"
 											tick={{
 												fontSize: 11,
-												fill: isDark ? "#abb3bf" : "#5f6b7c",
+												fill: isDark
+													? "#abb3bf"
+													: "#5f6b7c",
 											}}
-											stroke={isDark ? "#404854" : "#dce0e5"}
+											stroke={
+												isDark ? "#404854" : "#dce0e5"
+											}
 										/>
 										<YAxis
 											allowDecimals={false}
 											tick={{
 												fontSize: 12,
-												fill: isDark ? "#abb3bf" : "#5f6b7c",
+												fill: isDark
+													? "#abb3bf"
+													: "#5f6b7c",
 											}}
-											stroke={isDark ? "#404854" : "#dce0e5"}
+											stroke={
+												isDark ? "#404854" : "#dce0e5"
+											}
 										/>
 										<RechartsTooltip
 											cursor={{
@@ -288,9 +333,15 @@ export function ProviderDashboardBoard() {
 													: "rgba(0,0,0,0.04)",
 											}}
 											contentStyle={{
-												backgroundColor: isDark ? "#252a31" : "#ffffff",
-												borderColor: isDark ? "#404854" : "#dce0e5",
-												color: isDark ? "#f6f7f9" : "#1c2127",
+												backgroundColor: isDark
+													? "#252a31"
+													: "#ffffff",
+												borderColor: isDark
+													? "#404854"
+													: "#dce0e5",
+												color: isDark
+													? "#f6f7f9"
+													: "#1c2127",
 												borderRadius: "4px",
 												fontSize: "12px",
 											}}
@@ -298,13 +349,17 @@ export function ProviderDashboardBoard() {
 										<Bar
 											dataKey="enrolled"
 											name="Active Enrolled"
-											fill={isDark ? "#abb3bf" : "#5f6b7c"}
+											fill={
+												isDark ? "#abb3bf" : "#5f6b7c"
+											}
 											radius={[4, 4, 0, 0]}
 										/>
 										<Bar
 											dataKey="completed"
 											name="Completed"
-											fill={isDark ? "#4c90f0" : "#2d72d2"}
+											fill={
+												isDark ? "#4c90f0" : "#2d72d2"
+											}
 											radius={[4, 4, 0, 0]}
 										/>
 									</BarChart>
@@ -322,12 +377,19 @@ export function ProviderDashboardBoard() {
 							<ResponsiveContainer width="100%" height="100%">
 								<BarChart
 									data={analytics.employmentData}
-									margin={{ top: 10, right: 12, left: -16, bottom: 0 }}>
+									margin={{
+										top: 10,
+										right: 12,
+										left: -16,
+										bottom: 0,
+									}}>
 									<XAxis
 										dataKey="name"
 										tick={{
 											fontSize: 12,
-											fill: isDark ? "#abb3bf" : "#5f6b7c",
+											fill: isDark
+												? "#abb3bf"
+												: "#5f6b7c",
 										}}
 										stroke={isDark ? "#404854" : "#dce0e5"}
 									/>
@@ -335,7 +397,9 @@ export function ProviderDashboardBoard() {
 										allowDecimals={false}
 										tick={{
 											fontSize: 12,
-											fill: isDark ? "#abb3bf" : "#5f6b7c",
+											fill: isDark
+												? "#abb3bf"
+												: "#5f6b7c",
 										}}
 										stroke={isDark ? "#404854" : "#dce0e5"}
 									/>
@@ -346,17 +410,28 @@ export function ProviderDashboardBoard() {
 												: "rgba(0,0,0,0.04)",
 										}}
 										contentStyle={{
-											backgroundColor: isDark ? "#252a31" : "#ffffff",
-											borderColor: isDark ? "#404854" : "#dce0e5",
-											color: isDark ? "#f6f7f9" : "#1c2127",
+											backgroundColor: isDark
+												? "#252a31"
+												: "#ffffff",
+											borderColor: isDark
+												? "#404854"
+												: "#dce0e5",
+											color: isDark
+												? "#f6f7f9"
+												: "#1c2127",
 											borderRadius: "4px",
 											fontSize: "12px",
 										}}
 									/>
 									<Bar dataKey="count" radius={[4, 4, 0, 0]}>
-										{analytics.employmentData.map((entry, idx) => (
-											<Cell key={`cp-emp-${idx}`} fill={entry.color} />
-										))}
+										{analytics.employmentData.map(
+											(entry, idx) => (
+												<Cell
+													key={`cp-emp-${idx}`}
+													fill={entry.color}
+												/>
+											),
+										)}
 									</Bar>
 								</BarChart>
 							</ResponsiveContainer>
@@ -399,7 +474,8 @@ export function ProviderDashboardBoard() {
 				{analytics.perCourse.length === 0 ? (
 					<SectionCard>
 						<p className="text-xs bp6-text-muted py-4 text-center">
-							No courses associated with this provider account yet.
+							No courses associated with this provider account
+							yet.
 						</p>
 					</SectionCard>
 				) : (
@@ -415,15 +491,21 @@ export function ProviderDashboardBoard() {
 											{course.title}
 										</div>
 										<div className="flex flex-wrap gap-1.5 mt-1.5">
-											{course.skillsTaught.map((skill) => (
-												<Badge key={skill} variant="secondary">
-													{skill}
-												</Badge>
-											))}
+											{course.skillsTaught.map(
+												(skill) => (
+													<Badge
+														key={skill}
+														variant="secondary">
+														{skill}
+													</Badge>
+												),
+											)}
 										</div>
 									</div>
 									<div className="flex items-center gap-2 shrink-0 text-xs">
-										<Badge variant="outline">{course.enrolled} enrolled</Badge>
+										<Badge variant="outline">
+											{course.enrolled} enrolled
+										</Badge>
 										<Badge variant="success">
 											{course.completed} completed
 										</Badge>
